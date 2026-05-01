@@ -1,0 +1,220 @@
+---
+import { Bot, MessageSquare, Database, Plug, ArrowRight } from 'lucide-astro';
+
+const technologies = [
+  {
+    id: "ia",
+    icon: "Bot",
+    title: "Inteligencia Artificial",
+    description:
+      "Utilizamos algoritmos avanzados de IA para optimizar la gestión de cobranza, predecir comportamientos de pago y automatizar procesos repetitivos.",
+    features: [
+      "Análisis predictivo de pagos",
+      "Chatbots inteligentes",
+      "Automatización de procesos",
+      "Scoring de clientes",
+    ],
+  },
+  {
+    id: "omnicanalidad",
+    icon: "MessageSquare",
+    title: "Omnicanalidad",
+    description:
+      "Contactamos a sus clientes a través de múltiples canales de manera coordinada y eficiente, mejorando la experiencia y los resultados.",
+    features: [
+      "WhatsApp Business",
+      "SMS masivos",
+      "Email marketing",
+      "Llamadas automatizadas",
+    ],
+  },
+  {
+    id: "crm",
+    icon: "Database",
+    title: "CRM Interno",
+    description:
+      "Nuestro sistema CRM propio permite gestionar toda la información de clientes y casos en un solo lugar, con trazabilidad completa.",
+    features: [
+      "Dashboard en tiempo real",
+      "Historial de gestiones",
+      "Reportería avanzada",
+      "Alertas automáticas",
+    ],
+  },
+  {
+    id: "integraciones",
+    icon: "Plug",
+    title: "Integraciones",
+    description:
+      "Nos integramos con sus sistemas existentes mediante APIs robustas, permitiendo un flujo de información continuo y seguro.",
+    features: [
+      "APIs RESTful",
+      "Webhooks en tiempo real",
+      "Sincronización automática",
+      "Protocolos seguros",
+    ],
+  },
+];
+---
+
+<section id="tecnologias" class="py-20 lg:py-32 bg-background">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4">
+        Tecnología de Punta
+      </span>
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        Innovación al Servicio de{" "}
+        <span class="text-secondary">su Empresa</span>
+      </h2>
+      <p class="mt-4 text-lg text-muted-foreground leading-relaxed">
+        Combinamos las últimas tecnologías con nuestra experiencia para
+        ofrecer soluciones de vanguardia en gestión empresarial.
+      </p>
+    </div>
+
+    <!-- Technology Tabs - Desktop -->
+    <div class="hidden lg:grid lg:grid-cols-4 gap-4 mb-8">
+      {technologies.map((tech, index) => (
+        <button
+          data-tech-tab={index}
+          class:list={[
+            "tech-tab flex items-center gap-3 p-4 rounded-xl border transition-all text-left",
+            index === 0 
+              ? "border-secondary bg-secondary/10 shadow-lg active" 
+              : "border-border bg-card hover:border-secondary/50"
+          ]}
+        >
+          <div
+            class:list={[
+              "flex h-12 w-12 items-center justify-center rounded-lg",
+              index === 0 ? "bg-secondary text-primary" : "bg-muted text-foreground"
+            ]}
+            data-icon-container={index}
+          >
+            {tech.icon === "Bot" && <Bot class="h-6 w-6" />}
+            {tech.icon === "MessageSquare" && <MessageSquare class="h-6 w-6" />}
+            {tech.icon === "Database" && <Database class="h-6 w-6" />}
+            {tech.icon === "Plug" && <Plug class="h-6 w-6" />}
+          </div>
+          <span class="font-semibold text-foreground">{tech.title}</span>
+        </button>
+      ))}
+    </div>
+
+    <!-- Active Technology Detail - Desktop -->
+    <div class="hidden lg:block">
+      {technologies.map((tech, index) => (
+        <div 
+          data-tech-content={index}
+          class:list={[
+            "tech-content rounded-2xl border border-border bg-card p-8 lg:p-12",
+            index !== 0 && "hidden"
+          ]}
+        >
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary text-primary mb-6">
+                {tech.icon === "Bot" && <Bot class="h-8 w-8" />}
+                {tech.icon === "MessageSquare" && <MessageSquare class="h-8 w-8" />}
+                {tech.icon === "Database" && <Database class="h-8 w-8" />}
+                {tech.icon === "Plug" && <Plug class="h-8 w-8" />}
+              </div>
+              <h3 class="text-2xl font-bold text-foreground mb-4">
+                {tech.title}
+              </h3>
+              <p class="text-muted-foreground leading-relaxed mb-6">
+                {tech.description}
+              </p>
+              <a 
+                href="#contacto"
+                class="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+              >
+                Solicitar Información
+                <ArrowRight class="ml-2 h-4 w-4" />
+              </a>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              {tech.features.map((feature, idx) => (
+                <div class="rounded-xl border border-border bg-muted/50 p-4 flex items-center gap-3">
+                  <div class="flex h-8 w-8 items-center justify-center rounded-full bg-secondary/20 text-secondary">
+                    <span class="text-sm font-bold">{idx + 1}</span>
+                  </div>
+                  <span class="text-sm font-medium text-foreground">
+                    {feature}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="grid gap-6 sm:grid-cols-2 lg:hidden">
+      {technologies.map((tech) => (
+        <div
+          id={tech.id}
+          class="rounded-xl border border-border bg-card p-6 transition-all hover:shadow-lg hover:border-secondary/50"
+        >
+          <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary text-primary mb-4">
+            {tech.icon === "Bot" && <Bot class="h-6 w-6" />}
+            {tech.icon === "MessageSquare" && <MessageSquare class="h-6 w-6" />}
+            {tech.icon === "Database" && <Database class="h-6 w-6" />}
+            {tech.icon === "Plug" && <Plug class="h-6 w-6" />}
+          </div>
+          <h3 class="text-lg font-bold text-foreground mb-2">
+            {tech.title}
+          </h3>
+          <p class="text-sm text-muted-foreground mb-4">
+            {tech.description}
+          </p>
+          <ul class="space-y-2">
+            {tech.features.map((feature) => (
+              <li class="flex items-center gap-2 text-sm text-foreground">
+                <div class="h-1.5 w-1.5 rounded-full bg-secondary"></div>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.querySelectorAll('.tech-tab');
+  const contents = document.querySelectorAll('.tech-content');
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      // Update tabs
+      tabs.forEach((t, i) => {
+        const iconContainer = t.querySelector('[data-icon-container]');
+        if (i === index) {
+          t.classList.add('border-secondary', 'bg-secondary/10', 'shadow-lg', 'active');
+          t.classList.remove('border-border', 'bg-card');
+          iconContainer?.classList.add('bg-secondary', 'text-primary');
+          iconContainer?.classList.remove('bg-muted', 'text-foreground');
+        } else {
+          t.classList.remove('border-secondary', 'bg-secondary/10', 'shadow-lg', 'active');
+          t.classList.add('border-border', 'bg-card');
+          iconContainer?.classList.remove('bg-secondary', 'text-primary');
+          iconContainer?.classList.add('bg-muted', 'text-foreground');
+        }
+      });
+
+      // Update content
+      contents.forEach((content, i) => {
+        if (i === index) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

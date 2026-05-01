@@ -1,0 +1,80 @@
+---
+import { Building2 } from 'lucide-astro';
+
+const clients = [
+  { name: "Banco Nacional", industry: "Banca" },
+  { name: "Seguros Unidos", industry: "Seguros" },
+  { name: "TeleCom Plus", industry: "Telecomunicaciones" },
+  { name: "Retail Max", industry: "Retail" },
+  { name: "Financiera Global", industry: "Finanzas" },
+  { name: "Auto Leasing", industry: "Automotriz" },
+  { name: "Creditos Express", industry: "Fintech" },
+  { name: "Salud Total", industry: "Salud" },
+];
+---
+
+<section class="py-20 lg:py-24 bg-muted/30 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4">
+        Confían en Nosotros
+      </span>
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+        Clientes que <span class="text-secondary">Nos Eligen</span>
+      </h2>
+      <p class="mt-4 text-muted-foreground">
+        Trabajamos con empresas líderes en diversos sectores
+      </p>
+    </div>
+
+    <!-- Infinite Scroll Animation -->
+    <div class="relative">
+      <div class="flex animate-scroll gap-8">
+        {[...clients, ...clients].map((client) => (
+          <div class="flex-shrink-0 w-48 rounded-xl border border-border bg-card p-6 flex flex-col items-center justify-center gap-3 hover:border-secondary/50 transition-colors">
+            <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-muted">
+              <Building2 class="h-6 w-6 text-muted-foreground" />
+            </div>
+            <div class="text-center">
+              <p class="font-semibold text-foreground text-sm">
+                {client.name}
+              </p>
+              <p class="text-xs text-muted-foreground">
+                {client.industry}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="mt-16 grid grid-cols-2 gap-8 lg:grid-cols-4">
+      <div class="text-center">
+        <div class="text-4xl font-bold text-primary">500+</div>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Clientes Activos
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-primary">15+</div>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Años de Experiencia
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-primary">10M+</div>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Casos Gestionados
+        </p>
+      </div>
+      <div class="text-center">
+        <div class="text-4xl font-bold text-primary">98%</div>
+        <p class="mt-2 text-sm text-muted-foreground">
+          Satisfacción del Cliente
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

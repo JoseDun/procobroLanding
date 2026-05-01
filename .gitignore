@@ -1,0 +1,13 @@
+# Dependencies
+node_modules/
+
+# Astro
+.astro/
+dist/
+
+# Environment
+.env
+.env.*
+
+# System
+.DS_Store

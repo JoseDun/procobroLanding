@@ -1,0 +1,168 @@
+---
+import {
+  Wallet,
+  FileText,
+  Scale,
+  ShieldAlert,
+  Shield,
+  Car,
+  Phone,
+  Headphones,
+  ArrowRight,
+} from 'lucide-astro';
+
+const services = [
+  {
+    id: "cobranza",
+    icon: "Wallet",
+    title: "Cobranza",
+    description:
+      "Gestión integral de cobranza con estrategias personalizadas para maximizar la recuperación de su cartera.",
+    color: "bg-blue-500",
+  },
+  {
+    id: "prejudicial",
+    icon: "FileText",
+    title: "Prejudicial",
+    description:
+      "Gestión prejudicial efectiva para resolver conflictos antes de llegar a instancias judiciales.",
+    color: "bg-cyan-500",
+  },
+  {
+    id: "judicial",
+    icon: "Scale",
+    title: "Judicial",
+    description:
+      "Representación legal especializada en procesos judiciales de cobranza y recuperación.",
+    color: "bg-indigo-500",
+  },
+  {
+    id: "danos",
+    icon: "ShieldAlert",
+    title: "Daños",
+    description:
+      "Gestión de reclamos por daños con evaluación técnica y seguimiento profesional.",
+    color: "bg-orange-500",
+  },
+  {
+    id: "defensas",
+    icon: "Shield",
+    title: "Defensas",
+    description:
+      "Asesoría y defensa legal especializada para proteger los intereses de su empresa.",
+    color: "bg-emerald-500",
+  },
+  {
+    id: "siniestros",
+    icon: "Car",
+    title: "Recuperación de Siniestros",
+    description:
+      "Gestión completa de recuperación de siniestros vehiculares y de propiedad.",
+    color: "bg-red-500",
+  },
+  {
+    id: "telemarketing",
+    icon: "Phone",
+    title: "Telemarketing",
+    description:
+      "Campañas de telemarketing profesional para ventas, encuestas y gestión de clientes.",
+    color: "bg-purple-500",
+  },
+  {
+    id: "atencion",
+    icon: "Headphones",
+    title: "Atención al Cliente",
+    description:
+      "Servicio de atención al cliente multicanal con personal capacitado y tecnología avanzada.",
+    color: "bg-pink-500",
+  },
+];
+---
+
+<section id="servicios" class="py-20 lg:py-32 bg-muted/30">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4">
+        Nuestros Servicios
+      </span>
+      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
+        Soluciones Integrales para{" "}
+        <span class="text-secondary">su Negocio</span>
+      </h2>
+      <p class="mt-4 text-lg text-muted-foreground leading-relaxed">
+        Ofrecemos una amplia gama de servicios diseñados para optimizar sus
+        operaciones y maximizar sus resultados.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {services.map((service) => (
+        <div
+          id={service.id}
+          class="group relative rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-xl hover:border-secondary/50 hover:-translate-y-1"
+        >
+          <!-- Icon -->
+          <div
+            class:list={[
+              "flex h-14 w-14 items-center justify-center rounded-xl text-white mb-5 transition-transform group-hover:scale-110",
+              service.color
+            ]}
+          >
+            {service.icon === "Wallet" && <Wallet class="h-7 w-7" />}
+            {service.icon === "FileText" && <FileText class="h-7 w-7" />}
+            {service.icon === "Scale" && <Scale class="h-7 w-7" />}
+            {service.icon === "ShieldAlert" && <ShieldAlert class="h-7 w-7" />}
+            {service.icon === "Shield" && <Shield class="h-7 w-7" />}
+            {service.icon === "Car" && <Car class="h-7 w-7" />}
+            {service.icon === "Phone" && <Phone class="h-7 w-7" />}
+            {service.icon === "Headphones" && <Headphones class="h-7 w-7" />}
+          </div>
+
+          <!-- Content -->
+          <h3 class="text-xl font-bold text-foreground mb-3">
+            {service.title}
+          </h3>
+          <p class="text-muted-foreground text-sm leading-relaxed mb-4">
+            {service.description}
+          </p>
+
+          <!-- Link -->
+          <a
+            href="#contacto"
+            class="inline-flex items-center text-sm font-medium text-secondary hover:underline"
+          >
+            Más información
+            <ArrowRight class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </a>
+
+          <!-- Decorative corner -->
+          <div class="absolute top-0 right-0 h-16 w-16 overflow-hidden rounded-tr-2xl">
+            <div
+              class:list={[
+                "absolute -right-8 -top-8 h-16 w-16 rotate-45 opacity-10",
+                service.color
+              ]}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-16 text-center">
+      <p class="text-muted-foreground mb-6">
+        ¿No encuentra el servicio que necesita? Contáctenos para una
+        solución personalizada.
+      </p>
+      <a
+        href="#contacto"
+        class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+      >
+        Solicitar Consulta Gratuita
+        <ArrowRight class="ml-2 h-5 w-5" />
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,133 @@
+@import 'tailwindcss';
+
+/* Color palette: Primary #112060, Secondary #04C9CD, White #FFFFFF, Black #000000 */
+:root {
+  --background: #ffffff;
+  --foreground: #112060;
+  --card: #ffffff;
+  --card-foreground: #112060;
+  --popover: #ffffff;
+  --popover-foreground: #112060;
+  --primary: #112060;
+  --primary-foreground: #ffffff;
+  --secondary: #04C9CD;
+  --secondary-foreground: #112060;
+  --muted: #f4f6f9;
+  --muted-foreground: #4a5568;
+  --accent: #04C9CD;
+  --accent-foreground: #112060;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #04C9CD;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: #0a0f1f;
+  --foreground: #ffffff;
+  --card: #112060;
+  --card-foreground: #ffffff;
+  --popover: #112060;
+  --popover-foreground: #ffffff;
+  --primary: #04C9CD;
+  --primary-foreground: #112060;
+  --secondary: #112060;
+  --secondary-foreground: #ffffff;
+  --muted: #1e3a8a;
+  --muted-foreground: #94a3b8;
+  --accent: #04C9CD;
+  --accent-foreground: #112060;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #1e3a8a;
+  --input: #1e3a8a;
+  --ring: #04C9CD;
+}
+
+@theme inline {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Poppins', system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom animations */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(4, 201, 205, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(4, 201, 205, 0.5);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}

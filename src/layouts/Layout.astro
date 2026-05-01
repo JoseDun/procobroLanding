@@ -1,0 +1,45 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Servicios profesionales de cobranza, gestión judicial, telemarketing y atención al cliente. Tecnología de punta con IA, CRM y omnicanalidad.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es" class="bg-background">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="keywords" content="cobranza, gestión judicial, telemarketing, CRM, atención al cliente, recuperación de deudas" />
+    <meta name="theme-color" content="#112060" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="font-sans antialiased bg-background">
+    <slot />
+    <script>
+      // Theme toggle functionality
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      };
+
+      const updateTheme = () => {
+        const theme = getThemePreference();
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+      };
+
+      updateTheme();
+
+      window.addEventListener('storage', updateTheme);
+    </script>
+  </body>
+</html>

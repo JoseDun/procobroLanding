@@ -1,0 +1,253 @@
+---
+import { ShieldCheck, Phone, Mail, MessageSquare, CheckCircle2 } from 'lucide-astro';
+
+const contactMethods = [
+  { id: "phone", label: "Llamadas telefónicas", icon: "Phone" },
+  { id: "email", label: "Correo electrónico", icon: "Mail" },
+  { id: "sms", label: "SMS / Mensajes de texto", icon: "MessageSquare" },
+  { id: "whatsapp", label: "WhatsApp", icon: "MessageSquare" },
+];
+---
+
+<section id="desuscripcion" class="py-20 lg:py-32 bg-background">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-start">
+      <!-- Info -->
+      <div>
+        <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-white mb-6">
+          <ShieldCheck class="h-7 w-7" />
+        </div>
+        <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4">
+          Protección de{" "}
+          <span class="text-secondary">Datos Personales</span>
+        </h2>
+        <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
+          En cumplimiento con la Ley N° 19.628 sobre Protección de la Vida
+          Privada, puedes solicitar la exclusión de tus datos de contacto de
+          nuestras bases de datos.
+        </p>
+
+        <div class="space-y-4">
+          <div class="rounded-xl border border-border bg-card p-4">
+            <h3 class="font-semibold text-foreground mb-2">
+              ¿Qué es la Lista de Exclusión?
+            </h3>
+            <p class="text-sm text-muted-foreground">
+              Al registrarte, tus datos serán agregados a nuestra lista de
+              exclusión, lo que significa que no recibirás comunicaciones
+              comerciales ni de gestión de cobranza por los canales
+              seleccionados.
+            </p>
+          </div>
+
+          <div class="rounded-xl border border-border bg-card p-4">
+            <h3 class="font-semibold text-foreground mb-2">
+              Importante
+            </h3>
+            <p class="text-sm text-muted-foreground">
+              Esta solicitud aplica únicamente a comunicaciones comerciales.
+              Las comunicaciones legales o judiciales podrían continuar
+              según corresponda por ley.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div id="unsub-form-container" class="rounded-2xl border border-border bg-card p-8">
+        <h3 class="text-xl font-bold text-foreground mb-6">
+          Solicitud de Desuscripción
+        </h3>
+
+        <form id="unsub-form" class="space-y-6">
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="space-y-2">
+              <label for="unsub-rut" class="block text-sm font-medium text-foreground">RUT</label>
+              <input
+                id="unsub-rut"
+                name="rut"
+                type="text"
+                placeholder="12.345.678-9"
+                class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                required
+              />
+            </div>
+            <div class="space-y-2">
+              <label for="unsub-name" class="block text-sm font-medium text-foreground">Nombre Completo</label>
+              <input
+                id="unsub-name"
+                name="name"
+                type="text"
+                placeholder="Tu nombre"
+                class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="space-y-2">
+              <label for="unsub-email" class="block text-sm font-medium text-foreground">Email</label>
+              <input
+                id="unsub-email"
+                name="email"
+                type="email"
+                placeholder="tu@email.com"
+                class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                required
+              />
+            </div>
+            <div class="space-y-2">
+              <label for="unsub-phone" class="block text-sm font-medium text-foreground">Teléfono</label>
+              <input
+                id="unsub-phone"
+                name="phone"
+                type="tel"
+                placeholder="+56 9 1234 5678"
+                class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+              />
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <label class="block text-sm font-medium text-foreground">
+              Canales a Excluir (selecciona al menos uno)
+            </label>
+            <div class="grid gap-3 sm:grid-cols-2">
+              {contactMethods.map((method) => (
+                <button
+                  type="button"
+                  data-method={method.id}
+                  class="method-btn flex items-center gap-3 rounded-xl border border-border bg-background p-4 text-left transition-all hover:border-secondary/50"
+                >
+                  <div class="method-icon flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-muted-foreground">
+                    {method.icon === "Phone" && <Phone class="h-5 w-5" />}
+                    {method.icon === "Mail" && <Mail class="h-5 w-5" />}
+                    {method.icon === "MessageSquare" && <MessageSquare class="h-5 w-5" />}
+                  </div>
+                  <span class="method-label text-sm font-medium text-muted-foreground">
+                    {method.label}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="terms"
+              name="terms"
+              class="mt-1 h-4 w-4 rounded border-border"
+              required
+            />
+            <label for="terms" class="text-sm text-muted-foreground">
+              Declaro que los datos proporcionados son verídicos y autorizo
+              el tratamiento de mis datos personales para procesar esta
+              solicitud de exclusión.
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            id="unsub-submit"
+            disabled
+            class="w-full inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ShieldCheck class="mr-2 h-5 w-5" />
+            Enviar Solicitud de Exclusión
+          </button>
+        </form>
+      </div>
+
+      <!-- Success Message -->
+      <div id="unsub-success" class="hidden rounded-2xl border border-border bg-card p-8 lg:p-12 text-center lg:col-start-2">
+        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/20">
+          <CheckCircle2 class="h-8 w-8 text-green-500" />
+        </div>
+        <h2 class="text-2xl font-bold text-foreground mb-4">
+          Solicitud Recibida
+        </h2>
+        <p class="text-muted-foreground mb-6">
+          Tu solicitud de desuscripción ha sido registrada exitosamente.
+          Procesaremos tu petición dentro de los próximos 5 días hábiles
+          conforme a la Ley de Protección de Datos Personales.
+        </p>
+        <p class="text-sm text-muted-foreground">
+          Recibirás una confirmación por correo electrónico una vez
+          procesada tu solicitud.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const unsubForm = document.getElementById('unsub-form') as HTMLFormElement;
+  const unsubFormContainer = document.getElementById('unsub-form-container');
+  const unsubSuccess = document.getElementById('unsub-success');
+  const unsubSubmit = document.getElementById('unsub-submit') as HTMLButtonElement;
+  const methodBtns = document.querySelectorAll('.method-btn');
+  const rutInput = document.getElementById('unsub-rut') as HTMLInputElement;
+
+  const selectedMethods = new Set<string>();
+
+  // Format RUT
+  const formatRut = (value: string) => {
+    let cleaned = value.replace(/[^0-9kK]/g, "");
+    if (cleaned.length > 9) cleaned = cleaned.slice(0, 9);
+    if (cleaned.length > 1) {
+      const body = cleaned.slice(0, -1);
+      const dv = cleaned.slice(-1);
+      const formatted = body.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return `${formatted}-${dv.toUpperCase()}`;
+    }
+    return cleaned;
+  };
+
+  rutInput?.addEventListener('input', (e) => {
+    const target = e.target as HTMLInputElement;
+    target.value = formatRut(target.value);
+  });
+
+  // Toggle method selection
+  methodBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const method = btn.getAttribute('data-method');
+      if (!method) return;
+
+      const iconContainer = btn.querySelector('.method-icon');
+      const label = btn.querySelector('.method-label');
+
+      if (selectedMethods.has(method)) {
+        selectedMethods.delete(method);
+        btn.classList.remove('border-secondary', 'bg-secondary/10');
+        btn.classList.add('border-border', 'bg-background');
+        iconContainer?.classList.remove('bg-secondary', 'text-primary');
+        iconContainer?.classList.add('bg-muted', 'text-muted-foreground');
+        label?.classList.remove('text-foreground');
+        label?.classList.add('text-muted-foreground');
+      } else {
+        selectedMethods.add(method);
+        btn.classList.add('border-secondary', 'bg-secondary/10');
+        btn.classList.remove('border-border', 'bg-background');
+        iconContainer?.classList.add('bg-secondary', 'text-primary');
+        iconContainer?.classList.remove('bg-muted', 'text-muted-foreground');
+        label?.classList.add('text-foreground');
+        label?.classList.remove('text-muted-foreground');
+      }
+
+      // Enable/disable submit button
+      if (unsubSubmit) {
+        unsubSubmit.disabled = selectedMethods.size === 0;
+      }
+    });
+  });
+
+  // Form submit
+  unsubForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    unsubFormContainer?.classList.add('hidden');
+    unsubSuccess?.classList.remove('hidden');
+  });
+</script>
