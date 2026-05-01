@@ -2,14 +2,14 @@
 import { ShieldCheck, Phone, Mail, MessageSquare, CheckCircle2 } from 'lucide-astro';
 
 const contactMethods = [
-  { id: "phone", label: "Llamadas telefónicas", icon: "Phone" },
-  { id: "email", label: "Correo electrónico", icon: "Mail" },
+  { id: "phone", label: "Llamadas telefonicas", icon: "Phone" },
+  { id: "email", label: "Correo electronico", icon: "Mail" },
   { id: "sms", label: "SMS / Mensajes de texto", icon: "MessageSquare" },
   { id: "whatsapp", label: "WhatsApp", icon: "MessageSquare" },
 ];
 ---
 
-<section id="desuscripcion" class="py-20 lg:py-32 bg-background">
+<section id="proteccion" class="py-20 lg:py-32 bg-background">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="grid gap-12 lg:grid-cols-2 lg:items-start">
       <!-- Info -->
@@ -22,7 +22,7 @@ const contactMethods = [
           <span class="text-secondary">Datos Personales</span>
         </h2>
         <p class="text-lg text-muted-foreground mb-6 leading-relaxed">
-          En cumplimiento con la Ley N° 19.628 sobre Protección de la Vida
+          En cumplimiento con la Ley N 21.719 sobre Protección de la Vida
           Privada, puedes solicitar la exclusión de tus datos de contacto de
           nuestras bases de datos.
         </p>
@@ -47,7 +47,7 @@ const contactMethods = [
             <p class="text-sm text-muted-foreground">
               Esta solicitud aplica únicamente a comunicaciones comerciales.
               Las comunicaciones legales o judiciales podrían continuar
-              según corresponda por ley.
+              según corresponda por ley y compromisos contractuales.
             </p>
           </div>
         </div>
@@ -56,7 +56,7 @@ const contactMethods = [
       <!-- Form -->
       <div id="unsub-form-container" class="rounded-2xl border border-border bg-card p-8">
         <h3 class="text-xl font-bold text-foreground mb-6">
-          Solicitud de Desuscripción
+          Solicitud de De-suscripción
         </h3>
 
         <form id="unsub-form" class="space-y-6">
@@ -68,6 +68,7 @@ const contactMethods = [
                 name="rut"
                 type="text"
                 placeholder="12.345.678-9"
+                minlength="9"
                 class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
                 required
               />
@@ -79,6 +80,7 @@ const contactMethods = [
                 name="name"
                 type="text"
                 placeholder="Tu nombre"
+                minlength="2"
                 class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
                 required
               />
@@ -98,13 +100,15 @@ const contactMethods = [
               />
             </div>
             <div class="space-y-2">
-              <label for="unsub-phone" class="block text-sm font-medium text-foreground">Teléfono</label>
+              <label for="unsub-phone" class="block text-sm font-medium text-foreground">Telefono</label>
               <input
                 id="unsub-phone"
                 name="phone"
                 type="tel"
                 placeholder="+56 9 1234 5678"
+                minlength="8"
                 class="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                required
               />
             </div>
           </div>
@@ -151,12 +155,12 @@ const contactMethods = [
           <button
             type="submit"
             id="unsub-submit"
-            disabled
             class="w-full inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ShieldCheck class="mr-2 h-5 w-5" />
-            Enviar Solicitud de Exclusión
+            <span id="unsub-submit-text">Enviar Solicitud de Exclusión</span>
           </button>
+          <p id="unsub-status" class="hidden rounded-md px-4 py-3 text-sm" role="status"></p>
         </form>
       </div>
 
@@ -170,8 +174,7 @@ const contactMethods = [
         </h2>
         <p class="text-muted-foreground mb-6">
           Tu solicitud de desuscripción ha sido registrada exitosamente.
-          Procesaremos tu petición dentro de los próximos 5 días hábiles
-          conforme a la Ley de Protección de Datos Personales.
+          Procesaremos tu solicitud en un plazo máximo de 10 días hábiles.
         </p>
         <p class="text-sm text-muted-foreground">
           Recibirás una confirmación por correo electrónico una vez
@@ -183,14 +186,28 @@ const contactMethods = [
 </section>
 
 <script>
+  const unsubscribeEndpoint = import.meta.env.PUBLIC_UNSUBSCRIBE_FORM_ENDPOINT || '';
   const unsubForm = document.getElementById('unsub-form') as HTMLFormElement;
   const unsubFormContainer = document.getElementById('unsub-form-container');
   const unsubSuccess = document.getElementById('unsub-success');
   const unsubSubmit = document.getElementById('unsub-submit') as HTMLButtonElement;
+  const unsubSubmitText = document.getElementById('unsub-submit-text');
+  const unsubStatus = document.getElementById('unsub-status');
   const methodBtns = document.querySelectorAll('.method-btn');
   const rutInput = document.getElementById('unsub-rut') as HTMLInputElement;
 
   const selectedMethods = new Set<string>();
+
+  const setUnsubStatus = (message: string, type: 'error' | 'success') => {
+    if (!unsubStatus) return;
+    unsubStatus.textContent = message;
+    unsubStatus.classList.remove('hidden', 'bg-green-500/10', 'text-green-700', 'dark:text-green-300', 'bg-red-500/10', 'text-red-700', 'dark:text-red-300');
+    if (type === 'success') {
+      unsubStatus.classList.add('bg-green-500/10', 'text-green-700', 'dark:text-green-300');
+    } else {
+      unsubStatus.classList.add('bg-red-500/10', 'text-red-700', 'dark:text-red-300');
+    }
+  };
 
   // Format RUT
   const formatRut = (value: string) => {
@@ -237,17 +254,60 @@ const contactMethods = [
         label?.classList.remove('text-muted-foreground');
       }
 
-      // Enable/disable submit button
-      if (unsubSubmit) {
-        unsubSubmit.disabled = selectedMethods.size === 0;
-      }
+      unsubStatus?.classList.add('hidden');
     });
   });
 
   // Form submit
-  unsubForm?.addEventListener('submit', (e) => {
+  unsubForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    unsubFormContainer?.classList.add('hidden');
-    unsubSuccess?.classList.remove('hidden');
+
+    if (!unsubForm.checkValidity()) {
+      unsubForm.reportValidity();
+      return;
+    }
+
+    if (selectedMethods.size === 0) {
+      setUnsubStatus('Debes seleccionar al menos un canal a excluir.', 'error');
+      return;
+    }
+
+    unsubSubmit.disabled = true;
+    if (unsubSubmitText) unsubSubmitText.textContent = 'Procesando...';
+    unsubStatus?.classList.add('hidden');
+
+    const data = Object.fromEntries(new FormData(unsubForm));
+    const payload = {
+      rut: String(data.rut || ''),
+      name: String(data.name || ''),
+      email: String(data.email || ''),
+      phone: String(data.phone || ''),
+      channels: Array.from(selectedMethods),
+      acceptedTerms: data.terms === 'on',
+    };
+
+    try {
+      if (!unsubscribeEndpoint) {
+        throw new Error('Endpoint de exclusión no configurado');
+      }
+
+      const response = await fetch(unsubscribeEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo enviar la solicitud');
+      }
+
+      unsubFormContainer?.classList.add('hidden');
+      unsubSuccess?.classList.remove('hidden');
+    } catch (error) {
+      setUnsubStatus('No pudimos procesar la solicitud. Escríbenos a contacto@procobro.cl o por WhatsApp para recibir ayuda.', 'error');
+    } finally {
+      unsubSubmit.disabled = false;
+      if (unsubSubmitText) unsubSubmitText.textContent = 'Enviar Solicitud de Exclusión';
+    }
   });
 </script>

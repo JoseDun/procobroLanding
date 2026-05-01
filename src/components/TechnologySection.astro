@@ -9,10 +9,10 @@ const technologies = [
     description:
       "Utilizamos algoritmos avanzados de IA para optimizar la gestión de cobranza, predecir comportamientos de pago y automatizar procesos repetitivos.",
     features: [
-      "Análisis predictivo de pagos",
-      "Chatbots inteligentes",
-      "Automatización de procesos",
-      "Scoring de clientes",
+      "Análisis conversacional cognitivo del deudor",
+      "Identificación de flujo conversacional en base al tipo de deuda",
+      "Agente enfocado en orientar conversación a la recaudación o agendamiento",
+      "Negociador sobre ofertas disponibles",
     ],
   },
   {
@@ -20,25 +20,25 @@ const technologies = [
     icon: "MessageSquare",
     title: "Omnicanalidad",
     description:
-      "Contactamos a sus clientes a través de múltiples canales de manera coordinada y eficiente, mejorando la experiencia y los resultados.",
+      "Gestionamos la comunicación con deudores a través de múltiples canales: llamadas, SMS, email, WhatsApp, Agente IA y BOT.",
     features: [
-      "WhatsApp Business",
-      "SMS masivos",
-      "Email marketing",
       "Llamadas automatizadas",
+      "SMS y Email masivo",
+      "WhatsApp Business API",
+      "BOT interactivos",
     ],
   },
   {
     id: "crm",
     icon: "Database",
-    title: "CRM Interno",
+    title: "CRM Propio",
     description:
-      "Nuestro sistema CRM propio permite gestionar toda la información de clientes y casos en un solo lugar, con trazabilidad completa.",
+      "Nuestro CRM propietario permite seguimiento completo de cada caso con dashboards, reportes y trazabilidad.",
     features: [
-      "Dashboard en tiempo real",
-      "Historial de gestiones",
-      "Reportería avanzada",
-      "Alertas automáticas",
+      "Dashboard",
+      "Reportes personalizados",
+      "Gestión de cartera",
+      "Trazabilidad completa",
     ],
   },
   {
@@ -46,18 +46,18 @@ const technologies = [
     icon: "Plug",
     title: "Integraciones",
     description:
-      "Nos integramos con sus sistemas existentes mediante APIs robustas, permitiendo un flujo de información continuo y seguro.",
+      "Nos integramos con los sistemas de nuestros clientes mediante APIs seguras, permitiendo flujo de datos en tiempo real.",
     features: [
-      "APIs RESTful",
-      "Webhooks en tiempo real",
-      "Sincronización automática",
-      "Protocolos seguros",
+      "Integración mediante APIs REST seguras",
+      "Versátil",
+      "Rápido despliegue",
+      "Adaptable",
     ],
   },
 ];
 ---
 
-<section id="tecnologias" class="py-20 lg:py-32 bg-background">
+<section id="innovacion" class="py-20 lg:py-32 bg-background">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-16">
@@ -69,7 +69,7 @@ const technologies = [
         <span class="text-secondary">su Empresa</span>
       </h2>
       <p class="mt-4 text-lg text-muted-foreground leading-relaxed">
-        Combinamos las últimas tecnologías con nuestra experiencia para
+        Combinamos las ultimas tecnologías con nuestra experiencia para
         ofrecer soluciones de vanguardia en gestión empresarial.
       </p>
     </div>
@@ -108,6 +108,7 @@ const technologies = [
       {technologies.map((tech, index) => (
         <div 
           data-tech-content={index}
+          data-tech-id={tech.id}
           class:list={[
             "tech-content rounded-2xl border border-border bg-card p-8 lg:p-12",
             index !== 0 && "hidden"
@@ -156,7 +157,7 @@ const technologies = [
     <div class="grid gap-6 sm:grid-cols-2 lg:hidden">
       {technologies.map((tech) => (
         <div
-          id={tech.id}
+          data-tech-card={tech.id}
           class="rounded-xl border border-border bg-card p-6 transition-all hover:shadow-lg hover:border-secondary/50"
         >
           <div class="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary text-primary mb-4">
@@ -188,33 +189,57 @@ const technologies = [
 <script>
   const tabs = document.querySelectorAll('.tech-tab');
   const contents = document.querySelectorAll('.tech-content');
+  const technologySection = document.getElementById('innovacion');
+  const techIds = Array.from(contents).map(content => content.getAttribute('data-tech-id') || '');
+
+  const activateTechnology = (index: number, shouldScroll = false) => {
+    tabs.forEach((t, i) => {
+      const iconContainer = t.querySelector('[data-icon-container]');
+      if (i === index) {
+        t.classList.add('border-secondary', 'bg-secondary/10', 'shadow-lg', 'active');
+        t.classList.remove('border-border', 'bg-card');
+        iconContainer?.classList.add('bg-secondary', 'text-primary');
+        iconContainer?.classList.remove('bg-muted', 'text-foreground');
+      } else {
+        t.classList.remove('border-secondary', 'bg-secondary/10', 'shadow-lg', 'active');
+        t.classList.add('border-border', 'bg-card');
+        iconContainer?.classList.remove('bg-secondary', 'text-primary');
+        iconContainer?.classList.add('bg-muted', 'text-foreground');
+      }
+    });
+
+    contents.forEach((content, i) => {
+      content.classList.toggle('hidden', i !== index);
+    });
+
+    if (shouldScroll) {
+      technologySection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => {
-      // Update tabs
-      tabs.forEach((t, i) => {
-        const iconContainer = t.querySelector('[data-icon-container]');
-        if (i === index) {
-          t.classList.add('border-secondary', 'bg-secondary/10', 'shadow-lg', 'active');
-          t.classList.remove('border-border', 'bg-card');
-          iconContainer?.classList.add('bg-secondary', 'text-primary');
-          iconContainer?.classList.remove('bg-muted', 'text-foreground');
-        } else {
-          t.classList.remove('border-secondary', 'bg-secondary/10', 'shadow-lg', 'active');
-          t.classList.add('border-border', 'bg-card');
-          iconContainer?.classList.remove('bg-secondary', 'text-primary');
-          iconContainer?.classList.add('bg-muted', 'text-foreground');
-        }
-      });
-
-      // Update content
-      contents.forEach((content, i) => {
-        if (i === index) {
-          content.classList.remove('hidden');
-        } else {
-          content.classList.add('hidden');
-        }
-      });
+      const techId = techIds[index];
+      if (techId) history.replaceState(null, '', `#${techId}`);
+      activateTechnology(index);
     });
   });
+
+  const openTechFromHash = (hash = window.location.hash, shouldScroll = false) => {
+    const index = techIds.indexOf(hash.replace('#', ''));
+    if (index >= 0) activateTechnology(index, shouldScroll);
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null;
+    if (!link) return;
+    const index = techIds.indexOf(link.hash.replace('#', ''));
+    if (index < 0) return;
+    event.preventDefault();
+    history.pushState(null, '', link.hash);
+    activateTechnology(index, true);
+  });
+
+  window.addEventListener('hashchange', () => openTechFromHash(window.location.hash, true));
+  openTechFromHash(window.location.hash);
 </script>

@@ -4,7 +4,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = 'Servicios profesionales de cobranza, gestión judicial, telemarketing y atención al cliente. Tecnología de punta con IA, CRM y omnicanalidad.' } = Astro.props;
+const { title, description = 'Servicios profesionales de cobranza, gestión judicial y recuperación de cartera en Chile. Tecnología de punta con experiencia humana.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,16 +15,20 @@ const { title, description = 'Servicios profesionales de cobranza, gestión judi
     <meta name="description" content={description} />
     <meta name="keywords" content="cobranza, gestión judicial, telemarketing, CRM, atención al cliente, recuperación de deudas" />
     <meta name="theme-color" content="#112060" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0f1f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#07111f" media="(prefers-color-scheme: dark)" />
+    <script is:inline>
+      const storedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.classList.toggle('dark', storedTheme ? storedTheme === 'dark' : prefersDark);
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
   <body class="font-sans antialiased bg-background">
     <slot />
     <script>
-      // Theme toggle functionality
       const getThemePreference = () => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
           return localStorage.getItem('theme');

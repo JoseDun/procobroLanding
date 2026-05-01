@@ -9,6 +9,8 @@ import {
   Phone,
   Headphones,
   ArrowRight,
+  CheckCircle2,
+  X,
 } from 'lucide-astro';
 
 const services = [
@@ -19,6 +21,17 @@ const services = [
     description:
       "Gestión integral de cobranza con estrategias personalizadas para maximizar la recuperación de su cartera.",
     color: "bg-blue-500",
+    detail:
+      "Nuestro servicio de cobranza integral combina tecnología avanzada con un equipo humano altamente capacitado para maximizar la recuperación de su cartera vencida.",
+    detailTitle: "¿Qué incluye?",
+    detailItems: [
+      "Gestión telefónica profesional con scripts personalizados",
+      "Campañas de cobranza multicanal (llamadas, SMS, email, WhatsApp, BOT)",
+      "Segmentación inteligente de cartera",
+      "Negociación de planes de pago y acuerdos",
+      "Reportes con métricas de recuperación",
+      "Cumplimiento estricto de normativas legales vigentes",
+    ],
   },
   {
     id: "prejudicial",
@@ -27,6 +40,16 @@ const services = [
     description:
       "Gestión prejudicial efectiva para resolver conflictos antes de llegar a instancias judiciales.",
     color: "bg-cyan-500",
+    detail:
+      "La gestión prejudicial busca resolver conflictos de deuda antes de llegar a instancias judiciales, ahorrando tiempo y costos a todas las partes.",
+    detailTitle: "Proceso",
+    detailItems: [
+      "Diagnóstico inicial del caso y segmentación por probabilidad de acuerdo",
+      "Contacto estratégico multicanal con trazabilidad completa",
+      "Negociación personalizada según capacidad y perfil del deudor",
+      "Formalización de compromisos y calendario de pagos",
+      "Seguimiento activo y escalamiento legal solo cuando corresponde",
+    ],
   },
   {
     id: "judicial",
@@ -35,6 +58,16 @@ const services = [
     description:
       "Representación legal especializada en procesos judiciales de cobranza y recuperación.",
     color: "bg-indigo-500",
+    detail:
+      "Representación legal especializada en procesos judiciales de recuperación, con abogados expertos en derecho de cobranza.",
+    detailTitle: "Servicios incluidos",
+    detailItems: [
+      "Análisis de cartera",
+      "Preparación y presentación de demandas ejecutivas",
+      "Seguimiento procesal integral",
+      "Embargo y remate de bienes",
+      "Cobertura judicial a nivel nacional",
+    ],
   },
   {
     id: "danos",
@@ -43,6 +76,16 @@ const services = [
     description:
       "Gestión de reclamos por daños con evaluación técnica y seguimiento profesional.",
     color: "bg-orange-500",
+    detail:
+      "Gestión profesional de demandas judiciales derivadas de daños, ya sea siniestros u otros, proceso judicial, peritajes, ejecuciones y remates.",
+    detailTitle: "Áreas de cobertura",
+    detailItems: [
+      "Daños derivados de accidentes de tránsito",
+      "Daños a propiedades y bienes inmuebles (incendio, inundación, robo)",
+      "Asesorías en materia de daños civiles",
+      "Cobro de pólizas y coberturas",
+      "Cobro directo a compañías de seguros",
+    ],
   },
   {
     id: "defensas",
@@ -51,6 +94,15 @@ const services = [
     description:
       "Asesoría y defensa legal especializada para proteger los intereses de su empresa.",
     color: "bg-emerald-500",
+    detail:
+      "Servicio de asesoría y defensa legal especializada para proteger los intereses de su empresa ante demandas o procesos.",
+    detailTitle: "Áreas de cobertura",
+    detailItems: [
+      "Defensa ante el Sernac",
+      "Defensa por demandas judiciales de cobranza",
+      "Representación en tribunales civiles, de cobranza, laborales y penales",
+      "Asesoría preventiva en materia de cobranza",
+    ],
   },
   {
     id: "siniestros",
@@ -59,6 +111,16 @@ const services = [
     description:
       "Gestión completa de recuperación de siniestros vehiculares y de propiedad.",
     color: "bg-red-500",
+    detail:
+      "Gestión completa de recuperación de siniestros vehiculares y de propiedad para compañías de seguros y empresas.",
+    detailTitle: "Servicios",
+    detailItems: [
+      "Investigación y documentación del siniestro",
+      "Negociación con terceros y aseguradoras",
+      "Recuperación de costos por subrogación",
+      "Gestión de salvamento de vehículos",
+      "Seguimiento y reporting hasta cierre del caso",
+    ],
   },
   {
     id: "telemarketing",
@@ -67,6 +129,15 @@ const services = [
     description:
       "Campañas de telemarketing profesional para ventas, encuestas y gestión de clientes.",
     color: "bg-purple-500",
+    detail:
+      "Campañas de telemarketing profesional para ventas, encuestas, fidelización y gestión de clientes con tecnología de punta.",
+    detailTitle: "Capacidades",
+    detailItems: [
+      "Campañas outbound de ventas y cross-selling",
+      "Encuestas de satisfacción",
+      "Agendamiento de reuniones y citas",
+      "Marcador predictivo con IA",
+    ],
   },
   {
     id: "atencion",
@@ -75,6 +146,14 @@ const services = [
     description:
       "Servicio de atención al cliente multicanal con personal capacitado y tecnología avanzada.",
     color: "bg-pink-500",
+    detail:
+      "Servicio de atención al cliente multicanal con personal capacitado y tecnología avanzada para garantizar la mejor experiencia.",
+    detailTitle: "Canales disponibles",
+    detailItems: [
+      "Call center inbound con IVR inteligente",
+      "Chat en vivo y chatbots con IA",
+      "Atención por WhatsApp Business",
+    ],
   },
 ];
 ---
@@ -130,7 +209,8 @@ const services = [
 
           <!-- Link -->
           <a
-            href="#contacto"
+            href={`#${service.id}`}
+            data-service-open={service.id}
             class="inline-flex items-center text-sm font-medium text-secondary hover:underline"
           >
             Más información
@@ -150,6 +230,73 @@ const services = [
       ))}
     </div>
 
+    <!-- Service Detail Modal -->
+    <div
+      id="service-modal"
+      class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-2xl sm:p-8">
+        <button
+          type="button"
+          id="service-modal-close"
+          class="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted"
+          aria-label="Cerrar detalle de servicio"
+        >
+          <X class="h-5 w-5" />
+        </button>
+
+        {services.map((service) => (
+          <div data-service-panel={service.id} class="hidden pr-0 sm:pr-8">
+            <div
+              class:list={[
+                "mb-6 flex h-14 w-14 items-center justify-center rounded-xl text-white",
+                service.color
+              ]}
+            >
+              {service.icon === "Wallet" && <Wallet class="h-7 w-7" />}
+              {service.icon === "FileText" && <FileText class="h-7 w-7" />}
+              {service.icon === "Scale" && <Scale class="h-7 w-7" />}
+              {service.icon === "ShieldAlert" && <ShieldAlert class="h-7 w-7" />}
+              {service.icon === "Shield" && <Shield class="h-7 w-7" />}
+              {service.icon === "Car" && <Car class="h-7 w-7" />}
+              {service.icon === "Phone" && <Phone class="h-7 w-7" />}
+              {service.icon === "Headphones" && <Headphones class="h-7 w-7" />}
+            </div>
+
+            <h3 class="mb-4 text-2xl font-bold text-foreground">
+              {service.title}
+            </h3>
+            <p class="mb-6 leading-relaxed text-muted-foreground">
+              {service.detail}
+            </p>
+
+            <h4 class="mb-4 text-lg font-semibold text-foreground">
+              {service.detailTitle}
+            </h4>
+            <ul class="space-y-3">
+              {service.detailItems.map((item) => (
+                <li class="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <CheckCircle2 class="mt-0.5 h-5 w-5 flex-shrink-0 text-secondary" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="#contacto"
+              class="mt-8 inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Solicitar Información
+              <ArrowRight class="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+
     <!-- CTA -->
     <div class="mt-16 text-center">
       <p class="text-muted-foreground mb-6">
@@ -166,3 +313,68 @@ const services = [
     </div>
   </div>
 </section>
+
+<script>
+  const serviceModal = document.getElementById('service-modal');
+  const serviceClose = document.getElementById('service-modal-close');
+  const servicePanels = document.querySelectorAll('[data-service-panel]');
+  const serviceSection = document.getElementById('servicios');
+  const serviceIds = Array.from(servicePanels).map(panel => panel.getAttribute('data-service-panel') || '');
+
+  const closeServiceModal = () => {
+    serviceModal?.classList.add('hidden');
+    serviceModal?.classList.remove('flex');
+    serviceModal?.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  const openServiceModal = (serviceId: string, shouldScroll = false) => {
+    if (!serviceIds.includes(serviceId)) return;
+
+    servicePanels.forEach(panel => {
+      panel.classList.toggle('hidden', panel.getAttribute('data-service-panel') !== serviceId);
+    });
+
+    serviceModal?.classList.remove('hidden');
+    serviceModal?.classList.add('flex');
+    serviceModal?.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (shouldScroll) {
+      serviceSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  document.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest('a[href^="#"]') as HTMLAnchorElement | null;
+    if (!link) return;
+
+    const serviceId = link.hash.replace('#', '');
+    if (!serviceIds.includes(serviceId)) return;
+
+    event.preventDefault();
+    history.pushState(null, '', link.hash);
+    openServiceModal(serviceId, true);
+  });
+
+  serviceClose?.addEventListener('click', closeServiceModal);
+  serviceModal?.addEventListener('click', (event) => {
+    if (event.target === serviceModal) closeServiceModal();
+  });
+
+  serviceModal?.querySelectorAll('a[href="#contacto"]').forEach(link => {
+    link.addEventListener('click', closeServiceModal);
+  });
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeServiceModal();
+  });
+
+  const openServiceFromHash = () => {
+    const serviceId = window.location.hash.replace('#', '');
+    if (serviceIds.includes(serviceId)) openServiceModal(serviceId);
+  };
+
+  window.addEventListener('hashchange', openServiceFromHash);
+  openServiceFromHash();
+</script>

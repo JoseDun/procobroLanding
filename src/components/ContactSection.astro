@@ -15,22 +15,22 @@ const contactInfo = [
   {
     icon: "MapPin",
     title: "Dirección",
-    content: "Av. Principal 1234, Oficina 501, Santiago",
+    content: "Neveria 4444, Piso 9, Las Condes, RM",
   },
   {
     icon: "Phone",
     title: "Teléfono",
-    content: "+56 2 2345 6789",
+    content: "+56 9 4570 2260",
   },
   {
     icon: "Mail",
     title: "Email",
-    content: "contacto@Procobro.cl",
+    content: "contacto@procobro.cl",
   },
   {
     icon: "Clock",
     title: "Horario",
-    content: "Lunes a Viernes: 9:00 - 18:00",
+    content: "lunes a viernes: 9:00 - 18:00",
   },
 ];
 ---
@@ -68,6 +68,7 @@ const contactInfo = [
                   name="name"
                   type="text"
                   placeholder="Tu nombre"
+                  minlength="2"
                   class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
                   required
                 />
@@ -82,6 +83,7 @@ const contactInfo = [
                   name="company"
                   type="text"
                   placeholder="Nombre de tu empresa"
+                  minlength="2"
                   class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
                 />
               </div>
@@ -112,7 +114,9 @@ const contactInfo = [
                   name="phone"
                   type="tel"
                   placeholder="+56 9 1234 5678"
+                  minlength="8"
                   class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                  required
                 />
               </div>
             </div>
@@ -126,11 +130,15 @@ const contactInfo = [
                 id="service"
                 name="service"
                 class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                required
               >
                 <option value="">Selecciona un servicio</option>
                 <option value="cobranza">Cobranza</option>
                 <option value="prejudicial">Prejudicial</option>
                 <option value="judicial">Judicial</option>
+                <option value="danos">Daños</option>
+                <option value="defensas">Defensas</option>
+                <option value="siniestros">Recuperación de Siniestros</option>
                 <option value="telemarketing">Telemarketing</option>
                 <option value="atencion">Atención al Cliente</option>
                 <option value="otro">Otro</option>
@@ -145,17 +153,21 @@ const contactInfo = [
               name="message"
               rows="4"
               placeholder="Cuéntanos sobre tu necesidad..."
+              minlength="10"
               class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+              required
             ></textarea>
           </div>
 
           <button
             type="submit"
+            id="contact-submit"
             class="w-full inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
           >
             <Send class="mr-2 h-5 w-5" />
-            Enviar Solicitud
+            <span id="contact-submit-text">Enviar Solicitud</span>
           </button>
+          <p id="contact-status" class="hidden rounded-md px-4 py-3 text-sm" role="status"></p>
         </form>
       </div>
 
@@ -205,7 +217,7 @@ const contactInfo = [
             rápida y personalizada.
           </p>
           <a
-            href="https://wa.me/56912345678"
+            href="https://wa.me/56945702260"
             target="_blank"
             rel="noopener noreferrer"
             class="w-full inline-flex items-center justify-center rounded-md bg-green-500 px-6 py-3 text-base font-medium text-white hover:bg-green-600 transition-colors"
@@ -225,17 +237,23 @@ const contactInfo = [
           </h3>
           <p class="text-muted-foreground mb-4">
             Operamos en todo Chile con cobertura nacional. Nuestras oficinas
-            principales se encuentran en Santiago, con presencia en las
-            principales ciudades del país.
+            principales se encuentran en Santiago.
           </p>
-          <div class="aspect-video rounded-xl bg-muted flex items-center justify-center">
-            <div class="text-center">
-              <MapPin class="h-12 w-12 text-muted-foreground mx-auto mb-2" />
-              <p class="text-muted-foreground">
-                Cobertura Nacional
-              </p>
-            </div>
-          </div>
+          <iframe
+            title="Ubicación Procobro en Google Maps"
+            src="https://www.google.com/maps?q=Neveria%204444%2C%20Las%20Condes%2C%20RM&output=embed"
+            class="aspect-video w-full rounded-xl border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <a
+            href="https://maps.app.goo.gl/KNC7FT7WuW6X5XvQ8"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-4 inline-flex items-center text-sm font-medium text-secondary hover:underline"
+          >
+            Ver ubicación en Google Maps
+          </a>
         </div>
       </div>
     </div>
@@ -243,11 +261,74 @@ const contactInfo = [
 </section>
 
 <script>
+  const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT || '';
   const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  const contactSubmit = document.getElementById('contact-submit') as HTMLButtonElement;
+  const contactSubmitText = document.getElementById('contact-submit-text');
+  const contactStatus = document.getElementById('contact-status');
+
+  const setContactStatus = (message: string, type: 'success' | 'error') => {
+    if (!contactStatus) return;
+    contactStatus.textContent = message;
+    contactStatus.classList.remove('hidden', 'bg-green-500/10', 'text-green-700', 'dark:text-green-300', 'bg-red-500/10', 'text-red-700', 'dark:text-red-300');
+    if (type === 'success') {
+      contactStatus.classList.add('bg-green-500/10', 'text-green-700', 'dark:text-green-300');
+    } else {
+      contactStatus.classList.add('bg-red-500/10', 'text-red-700', 'dark:text-red-300');
+    }
+  };
   
-  contactForm?.addEventListener('submit', (e) => {
+  contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    alert('Gracias por contactarnos. Nos comunicaremos pronto.');
-    contactForm.reset();
+
+    if (!contactForm.checkValidity()) {
+      contactForm.reportValidity();
+      return;
+    }
+
+    contactSubmit.disabled = true;
+    if (contactSubmitText) contactSubmitText.textContent = 'Enviando...';
+    contactStatus?.classList.add('hidden');
+
+    const data = Object.fromEntries(new FormData(contactForm));
+    const payload = {
+      name: String(data.name || ''),
+      company: String(data.company || ''),
+      email: String(data.email || ''),
+      phone: String(data.phone || ''),
+      service: String(data.service || ''),
+      message: String(data.message || ''),
+      source: 'procobro-landing-contact',
+    };
+
+    try {
+      if (!contactEndpoint) {
+        throw new Error('Endpoint de contacto no configurado');
+      }
+
+      const response = await fetch(contactEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo enviar la solicitud');
+      }
+
+      if (contactSubmitText) contactSubmitText.textContent = '¡Enviado con éxito!';
+      setContactStatus('Gracias por contactarnos. Nos comunicaremos pronto.', 'success');
+      contactForm.reset();
+    } catch (error) {
+      if (contactSubmitText) contactSubmitText.textContent = 'Enviar Solicitud';
+      setContactStatus('No pudimos enviar el formulario. Escríbenos a contacto@procobro.cl o por WhatsApp para recibir atención inmediata.', 'error');
+    } finally {
+      window.setTimeout(() => {
+        contactSubmit.disabled = false;
+        if (contactSubmitText?.textContent === '¡Enviado con éxito!') {
+          contactSubmitText.textContent = 'Enviar Solicitud';
+        }
+      }, 1800);
+    }
   });
 </script>
