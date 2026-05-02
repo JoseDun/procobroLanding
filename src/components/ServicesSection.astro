@@ -237,9 +237,14 @@ const services = [
       role="dialog"
       aria-modal="true"
       aria-label="Detalle de servicio"
+      aria-labelledby="service-modal-title"
       aria-hidden="true"
     >
       <div class="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-border bg-card p-6 shadow-2xl sm:p-8">
+        <h2 id="service-modal-title" class="sr-only">
+          Detalle de servicio
+        </h2>
+
         <button
           type="button"
           id="service-modal-close"
@@ -318,6 +323,7 @@ const services = [
 <script>
   const serviceModal = document.getElementById('service-modal');
   const serviceClose = document.getElementById('service-modal-close');
+  const serviceModalTitle = document.getElementById('service-modal-title');
   const servicePanels = document.querySelectorAll('[data-service-panel]');
   const serviceSection = document.getElementById('servicios');
   const serviceIds = Array.from(servicePanels).map(panel => panel.getAttribute('data-service-panel') || '');
@@ -332,9 +338,19 @@ const services = [
   const openServiceModal = (serviceId: string, shouldScroll = false) => {
     if (!serviceIds.includes(serviceId)) return;
 
+    let activeServiceTitle = '';
     servicePanels.forEach(panel => {
-      panel.classList.toggle('hidden', panel.getAttribute('data-service-panel') !== serviceId);
+      const isActive = panel.getAttribute('data-service-panel') === serviceId;
+      panel.classList.toggle('hidden', !isActive);
+      if (isActive) {
+        activeServiceTitle = panel.querySelector('h3')?.textContent?.trim() || '';
+      }
     });
+    if (serviceModalTitle) {
+      serviceModalTitle.textContent = activeServiceTitle
+        ? `Detalle de servicio: ${activeServiceTitle}`
+        : 'Detalle de servicio';
+    }
 
     serviceModal?.classList.remove('hidden');
     serviceModal?.classList.add('flex');
