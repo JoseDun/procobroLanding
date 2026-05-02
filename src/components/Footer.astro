@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { Facebook, Twitter, Linkedin, Instagram, ArrowUp, X } from 'lucide-astro';
 
 const footerLinks = {
@@ -77,9 +78,11 @@ const termsSections = [
       <!-- Brand -->
       <div class="lg:col-span-2">
         <a href="#inicio" class="mb-6 inline-flex rounded-lg bg-white px-3 py-2 shadow-sm" aria-label="Ir al inicio">
-          <img
+          <Image
             src="/assets/procobro-logo.png"
             alt="Procobro"
+            width={1080}
+            height={397}
             class="h-9 w-auto"
             loading="lazy"
           />

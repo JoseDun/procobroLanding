@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-astro';
 
 const services = [
@@ -29,9 +30,11 @@ const technologies = [
       <!-- Logo -->
       <a href="#inicio" class="flex items-center" aria-label="Ir al inicio">
         <span class="flex rounded-lg bg-white px-3 py-2 shadow-sm">
-          <img
+          <Image
             src="/assets/procobro-logo.png"
             alt="Procobro"
+            width={1080}
+            height={397}
             class="h-8 w-auto"
             loading="eager"
           />
@@ -58,6 +61,7 @@ const technologies = [
               {technologies.map((tech) => (
                 <a
                   href={tech.href}
+                  aria-label={`Ir a ${tech.name}`}
                   class="block px-4 py-2 text-sm text-card-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
                 >
                   {tech.name}
@@ -78,6 +82,7 @@ const technologies = [
               {services.map((service) => (
                 <a
                   href={service.href}
+                  aria-label={`Ir a ${service.name}`}
                   class="block px-4 py-2 text-sm text-card-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
                 >
                   {service.name}
@@ -159,6 +164,7 @@ const technologies = [
           {technologies.map((tech) => (
             <a
               href={tech.href}
+              aria-label={`Ir a ${tech.name}`}
               class="block pl-4 text-sm text-white/80 transition-colors hover:text-secondary"
             >
               {tech.name}
@@ -173,6 +179,7 @@ const technologies = [
           {services.map((service) => (
             <a
               href={service.href}
+              aria-label={`Ir a ${service.name}`}
               class="block pl-4 text-sm text-white/80 transition-colors hover:text-secondary"
             >
               {service.name}

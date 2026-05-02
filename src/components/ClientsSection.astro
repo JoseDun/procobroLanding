@@ -1,15 +1,16 @@
 ---
+import { Image } from 'astro:assets';
 import { ExternalLink } from 'lucide-astro';
 
 const clients = [
-  { name: "Equifax", href: "https://sec.equifax.cl/compraonline/", logo: "/assets/client-equifax.jpeg" },
-  { name: "Autopista Vespucio Norte", href: "https://www.vespucionorte.cl/", logo: "/assets/client-vespucio-norte.jpeg" },
-  { name: "Autopista Vespucio Oriente", href: "https://www.avo.cl/", logo: "/assets/client-avo.jpeg" },
-  { name: "Autopista Central", href: "https://www.autopistacentral.cl/", logo: "/assets/client-autopista-central.jpeg" },
-  { name: "Ruta del Maipo", href: "https://www.rutamaipo.cl/", logo: "/assets/client-ruta-maipo.png" },
-  { name: "Sacyr", href: "https://sacyr.com/", logo: "/assets/client-sacyr.jpeg" },
-  { name: "Consorcio", href: "https://sitio.consorcio.cl/home", logo: "/assets/client-consorcio.jpeg" },
-  { name: "BCI Seguros", href: "https://www.bciseguros.cl/", logo: "/assets/client-bci-seguros.jpeg" },
+  { name: "Equifax", href: "https://sec.equifax.cl/compraonline/", logo: "/assets/client-equifax.jpeg", width: 260, height: 48 },
+  { name: "Autopista Vespucio Norte", href: "https://www.vespucionorte.cl/", logo: "/assets/client-vespucio-norte.jpeg", width: 1348, height: 251 },
+  { name: "Autopista Vespucio Oriente", href: "https://www.avo.cl/", logo: "/assets/client-avo.jpeg", width: 415, height: 118 },
+  { name: "Autopista Central", href: "https://www.autopistacentral.cl/", logo: "/assets/client-autopista-central.jpeg", width: 225, height: 150 },
+  { name: "Ruta del Maipo", href: "https://www.rutamaipo.cl/", logo: "/assets/client-ruta-maipo.png", width: 768, height: 212 },
+  { name: "Sacyr", href: "https://sacyr.com/", logo: "/assets/client-sacyr.jpeg", width: 118, height: 31 },
+  { name: "Consorcio", href: "https://sitio.consorcio.cl/home", logo: "/assets/client-consorcio.jpeg", width: 137, height: 80 },
+  { name: "BCI Seguros", href: "https://www.bciseguros.cl/", logo: "/assets/client-bci-seguros.jpeg", width: 600, height: 136 },
 ];
 ---
 
@@ -39,9 +40,11 @@ const clients = [
             class="group flex h-32 w-60 flex-shrink-0 flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-secondary/50"
             aria-label={`Visitar sitio de ${client.name}`}
           >
-            <img
+            <Image
               src={client.logo}
               alt={client.name}
+              width={client.width}
+              height={client.height}
               class="max-h-14 max-w-full object-contain"
               loading="lazy"
             />
