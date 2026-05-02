@@ -180,7 +180,7 @@ const services = [
       {services.map((service) => (
         <div
           id={service.id}
-          class="group relative rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-xl hover:border-secondary/50 hover:-translate-y-1"
+          class="group relative flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-secondary/50 hover:shadow-xl"
         >
           <!-- Icon -->
           <div
@@ -211,7 +211,7 @@ const services = [
           <a
             href={`#${service.id}`}
             data-service-open={service.id}
-            class="inline-flex items-center text-sm font-medium text-secondary hover:underline"
+            class="mt-auto inline-flex items-center text-sm font-medium text-secondary hover:underline"
           >
             Más información
             <ArrowRight class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
