@@ -30,31 +30,36 @@ const clients = [
     </div>
 
     <!-- Infinite Scroll Animation -->
-    <div class="relative">
-      <div class="flex animate-scroll gap-8">
-        {[...clients, ...clients].map((client) => (
-          <a
-            href={client.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex h-32 w-60 flex-shrink-0 flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-secondary/50"
-            aria-label={`Visitar sitio de ${client.name}`}
-          >
-            <Image
-              src={client.logo}
-              alt={client.name}
-              width={client.width}
-              height={client.height}
-              class="max-h-14 max-w-full object-contain"
-              loading="lazy"
-            />
-            <div class="flex items-center gap-1 text-center">
-              <p class="font-semibold text-foreground text-xs">
-                {client.name}
-              </p>
-              <ExternalLink class="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-            </div>
-          </a>
+    <div class="relative overflow-hidden">
+      <div class="clients-marquee flex w-max">
+        {[0, 1].map((setIndex) => (
+          <div class="clients-marquee-set flex shrink-0 gap-8 pr-8" aria-hidden={setIndex === 1 ? "true" : undefined}>
+            {clients.map((client) => (
+              <a
+                href={client.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex h-32 w-60 flex-shrink-0 flex-col items-center justify-center gap-3 rounded-xl border border-border bg-card p-5 transition-colors hover:border-secondary/50"
+                aria-label={`Visitar sitio de ${client.name}`}
+                tabindex={setIndex === 1 ? "-1" : undefined}
+              >
+                <Image
+                  src={client.logo}
+                  alt={client.name}
+                  width={client.width}
+                  height={client.height}
+                  class="max-h-14 max-w-full object-contain"
+                  loading="lazy"
+                />
+                <div class="flex items-center gap-1 text-center">
+                  <p class="font-semibold text-foreground text-xs">
+                    {client.name}
+                  </p>
+                  <ExternalLink class="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                </div>
+              </a>
+            ))}
+          </div>
         ))}
       </div>
     </div>
@@ -88,3 +93,23 @@ const clients = [
     </div>
   </div>
 </section>
+
+<style>
+  .clients-marquee {
+    animation: clients-marquee 28s linear infinite;
+  }
+
+  .clients-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  @keyframes clients-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+</style>
