@@ -31,7 +31,7 @@ const clients = [
 
     <!-- Infinite Scroll Animation -->
     <div class="relative overflow-hidden">
-      <div class="clients-marquee flex w-max">
+      <div class="clients-marquee flex w-max" data-clients-marquee data-duration="28">
         {[0, 1].map((setIndex) => (
           <div class="clients-marquee-set flex shrink-0 gap-8 pr-8" aria-hidden={setIndex === 1 ? "true" : undefined}>
             {clients.map((client) => (
@@ -42,6 +42,7 @@ const clients = [
                 class="group flex h-32 w-60 flex-shrink-0 flex-col items-center rounded-xl border border-border bg-card p-5 transition-colors hover:border-secondary/50"
                 aria-label={`Visitar sitio de ${client.name}`}
                 tabindex={setIndex === 1 ? "-1" : undefined}
+                draggable="false"
               >
                 <div class="flex min-h-0 flex-1 items-center justify-center">
                   <Image
@@ -51,6 +52,7 @@ const clients = [
                     height={client.height}
                     class="max-h-14 max-w-full object-contain"
                     loading="lazy"
+                    draggable="false"
                   />
                 </div>
                 <div class="mt-auto flex h-5 items-center gap-1 text-center">
@@ -99,10 +101,28 @@ const clients = [
 <style>
   .clients-marquee {
     animation: clients-marquee 28s linear infinite;
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    will-change: transform;
   }
 
   .clients-marquee:hover {
     animation-play-state: paused;
+  }
+
+  .clients-marquee.is-interactive {
+    animation: none;
+  }
+
+  .clients-marquee.is-dragging {
+    cursor: grabbing;
+  }
+
+  .clients-marquee a {
+    cursor: inherit;
+    -webkit-user-drag: none;
+    user-select: none;
   }
 
   @keyframes clients-marquee {
@@ -115,3 +135,140 @@ const clients = [
     }
   }
 </style>
+
+<script>
+  const marquees = document.querySelectorAll("[data-clients-marquee]");
+
+  marquees.forEach((marquee) => {
+    const set = marquee.querySelector(".clients-marquee-set");
+
+    if (!(marquee instanceof HTMLElement) || !(set instanceof HTMLElement)) {
+      return;
+    }
+
+    const duration = Number(marquee.dataset.duration) || 28;
+    let setWidth = set.offsetWidth;
+    let speed = setWidth / duration;
+    let offset = 0;
+    let lastTime = 0;
+    let isDragging = false;
+    let startX = 0;
+    let startOffset = 0;
+    let activePointerId = null;
+    let shouldBlockClick = false;
+    let isHovering = false;
+
+    const normalizeOffset = (value) => {
+      if (!setWidth) {
+        return 0;
+      }
+
+      return -((((-value) % setWidth) + setWidth) % setWidth);
+    };
+
+    const applyTransform = () => {
+      marquee.style.transform = `translate3d(${offset}px, 0, 0)`;
+    };
+
+    const updateMetrics = () => {
+      setWidth = set.offsetWidth;
+      speed = setWidth / duration;
+      offset = normalizeOffset(offset);
+      applyTransform();
+    };
+
+    const stopDragging = (event) => {
+      if (activePointerId !== event.pointerId) {
+        return;
+      }
+
+      isDragging = false;
+      activePointerId = null;
+      marquee.classList.remove("is-dragging");
+
+      if (marquee.hasPointerCapture(event.pointerId)) {
+        marquee.releasePointerCapture(event.pointerId);
+      }
+    };
+
+    marquee.classList.add("is-interactive");
+    updateMetrics();
+
+    marquee.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      isDragging = true;
+      startX = event.clientX;
+      startOffset = offset;
+      activePointerId = event.pointerId;
+      shouldBlockClick = false;
+      marquee.classList.add("is-dragging");
+      marquee.setPointerCapture(event.pointerId);
+    });
+
+    marquee.addEventListener("pointermove", (event) => {
+      if (!isDragging || activePointerId !== event.pointerId) {
+        return;
+      }
+
+      const dragDistance = event.clientX - startX;
+
+      if (Math.abs(dragDistance) > 4) {
+        shouldBlockClick = true;
+      }
+
+      offset = normalizeOffset(startOffset + dragDistance);
+      applyTransform();
+    });
+
+    marquee.addEventListener("pointerup", stopDragging);
+    marquee.addEventListener("pointercancel", stopDragging);
+    marquee.addEventListener("mouseenter", () => {
+      isHovering = true;
+    });
+    marquee.addEventListener("mouseleave", () => {
+      isHovering = false;
+    });
+
+    marquee.addEventListener(
+      "click",
+      (event) => {
+        if (!shouldBlockClick) {
+          return;
+        }
+
+        event.preventDefault();
+        event.stopPropagation();
+        shouldBlockClick = false;
+      },
+      true
+    );
+
+    if ("ResizeObserver" in window) {
+      const resizeObserver = new ResizeObserver(updateMetrics);
+      resizeObserver.observe(set);
+    } else {
+      window.addEventListener("resize", updateMetrics);
+    }
+
+    const animate = (time) => {
+      if (!lastTime) {
+        lastTime = time;
+      }
+
+      const elapsed = time - lastTime;
+      lastTime = time;
+
+      if (!isDragging && !isHovering && !document.hidden) {
+        offset = normalizeOffset(offset - speed * (elapsed / 1000));
+        applyTransform();
+      }
+
+      requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
+  });
+</script>
