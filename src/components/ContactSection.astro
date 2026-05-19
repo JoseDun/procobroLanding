@@ -13,244 +13,302 @@ import {
 
 const contactInfo = [
   {
-    icon: "MapPin",
-    title: "Dirección",
-    content: "Neveria 4444, Piso 9, Las Condes, RM",
+    icon: 'MapPin',
+    title: 'Dirección',
+    content: 'Neveria 4444, Piso 9, Las Condes, RM',
   },
   {
-    icon: "Phone",
-    title: "Teléfono",
-    content: "+56 9 4570 2260",
+    icon: 'Phone',
+    title: 'Teléfono',
+    content: '+56 9 4570 2260',
   },
   {
-    icon: "Mail",
-    title: "Email",
-    content: "contacto@procobro.cl",
+    icon: 'Mail',
+    title: 'Email',
+    content: 'contacto@procobro.cl',
   },
   {
-    icon: "Clock",
-    title: "Horario",
-    content: "lunes a viernes: 9:00 - 18:00",
+    icon: 'Clock',
+    title: 'Horario',
+    content: 'lunes a viernes: 9:00 - 18:00',
   },
 ];
 ---
 
-<section id="contacto" class="py-20 lg:py-32 bg-muted/30">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section
+  id='contacto'
+  class='py-20 lg:py-32 bg-muted/30'
+>
+  <div class='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
     <!-- Header -->
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <span class="inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4">
+    <div class='text-center max-w-3xl mx-auto mb-16'>
+      <span
+        class='inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4'
+      >
         Contacto
       </span>
-      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-        ¿Quieres Nuestros <span class="text-secondary">Servicios?</span>
+      <h2
+        class='text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl'
+      >
+        ¿Quieres Nuestros <span class='text-secondary'>Servicios?</span>
       </h2>
-      <p class="mt-4 text-lg text-muted-foreground">
+      <p class='mt-4 text-lg text-muted-foreground'>
         Estamos listos para ayudarte. Completa el formulario o contáctanos
         directamente.
       </p>
     </div>
 
-    <div class="grid gap-12 lg:grid-cols-2">
+    <div class='grid gap-12 lg:grid-cols-2'>
       <!-- Contact Form -->
-      <div class="rounded-2xl border border-border bg-card p-8 lg:p-10">
-        <h3 class="text-xl font-bold text-foreground mb-6">
+      <div class='rounded-2xl border border-border bg-card p-8 lg:p-10'>
+        <h3 class='text-xl font-bold text-foreground mb-6'>
           Solicita Información
         </h3>
-        <form id="contact-form" class="space-y-6">
-          <div class="grid gap-6 sm:grid-cols-2">
-            <div class="space-y-2">
-              <label for="name" class="block text-sm font-medium text-foreground">Nombre Completo</label>
-              <div class="relative">
-                <User class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <form
+          id='contact-form'
+          class='space-y-6'
+        >
+          <div class='grid gap-6 sm:grid-cols-2'>
+            <div class='space-y-2'>
+              <label
+                for='name'
+                class='block text-sm font-medium text-foreground'
+                >Nombre Completo</label
+              >
+              <div class='relative'>
+                <User
+                  class='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground'
+                />
                 <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Tu nombre"
-                  minlength="2"
-                  class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                  id='name'
+                  name='name'
+                  type='text'
+                  placeholder='Tu nombre'
+                  minlength='2'
+                  class='h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
                   required
                 />
               </div>
             </div>
-            <div class="space-y-2">
-              <label for="company" class="block text-sm font-medium text-foreground">Empresa</label>
-              <div class="relative">
-                <Building class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  id="company"
-                  name="company"
-                  type="text"
-                  placeholder="Nombre de tu empresa"
-                  minlength="2"
-                  class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+            <div class='space-y-2'>
+              <label
+                for='company'
+                class='block text-sm font-medium text-foreground'
+                >Empresa</label
+              >
+              <div class='relative'>
+                <Building
+                  class='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground'
                 />
-              </div>
-            </div>
-          </div>
-
-          <div class="grid gap-6 sm:grid-cols-2">
-            <div class="space-y-2">
-              <label for="email" class="block text-sm font-medium text-foreground">Email</label>
-              <div class="relative">
-                <Mail class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="tu@email.com"
-                  class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
-                  required
-                />
-              </div>
-            </div>
-            <div class="space-y-2">
-              <label for="phone" class="block text-sm font-medium text-foreground">Teléfono</label>
-              <div class="relative">
-                <Phone class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  placeholder="+56 9 1234 5678"
-                  minlength="8"
-                  class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                  id='company'
+                  name='company'
+                  type='text'
+                  placeholder='Nombre de tu empresa'
+                  minlength='2'
+                  class='h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
                   required
                 />
               </div>
             </div>
           </div>
 
-          <div class="space-y-2">
-            <label for="service" class="block text-sm font-medium text-foreground">Servicio de Interés</label>
-            <div class="relative">
-              <FileText class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <div class='grid gap-6 sm:grid-cols-2'>
+            <div class='space-y-2'>
+              <label
+                for='email'
+                class='block text-sm font-medium text-foreground'
+                >Email</label
+              >
+              <div class='relative'>
+                <Mail
+                  class='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground'
+                />
+                <input
+                  id='email'
+                  name='email'
+                  type='email'
+                  placeholder='tu@email.com'
+                  pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
+                  title='Ingresa un email válido, por ejemplo tu@email.com'
+                  autocomplete='email'
+                  inputmode='email'
+                  class='h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
+                  required
+                />
+              </div>
+            </div>
+            <div class='space-y-2'>
+              <label
+                for='phone'
+                class='block text-sm font-medium text-foreground'
+                >Teléfono</label
+              >
+              <div class='relative'>
+                <Phone
+                  class='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground'
+                />
+                <input
+                  id='phone'
+                  name='phone'
+                  type='tel'
+                  placeholder='+56 9 1234 5678'
+                  minlength='9'
+                  title='Ingresa un teléfono chileno válido, por ejemplo +56 9 1234 5678 o +56 2 2345 6789'
+                  autocomplete='tel'
+                  class='h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class='space-y-2'>
+            <label
+              for='service'
+              class='block text-sm font-medium text-foreground'
+              >Servicio de Interés</label
+            >
+            <div class='relative'>
+              <FileText
+                class='absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground'
+              />
               <select
-                id="service"
-                name="service"
-                class="h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+                id='service'
+                name='service'
+                class='h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
                 required
               >
-                <option value="">Selecciona un servicio</option>
-                <option value="cobranza">Cobranza</option>
-                <option value="prejudicial">Prejudicial</option>
-                <option value="judicial">Judicial</option>
-                <option value="danos">Daños</option>
-                <option value="defensas">Defensas</option>
-                <option value="siniestros">Recuperación de Siniestros</option>
-                <option value="telemarketing">Telemarketing</option>
-                <option value="atencion">Atención al Cliente</option>
-                <option value="otro">Otro</option>
+                <option value=''>Selecciona un servicio</option>
+                <option value='cobranza'>Cobranza</option>
+                <option value='prejudicial'>Prejudicial</option>
+                <option value='judicial'>Judicial</option>
+                <option value='danos'>Daños</option>
+                <option value='defensas'>Defensas</option>
+                <option value='siniestros'>Recuperación de Siniestros</option>
+                <option value='telemarketing'>Telemarketing</option>
+                <option value='atencion'>Atención al Cliente</option>
+                <option value='otro'>Otro</option>
               </select>
             </div>
           </div>
 
-          <div class="space-y-2">
-            <label for="message" class="block text-sm font-medium text-foreground">Mensaje</label>
+          <div class='space-y-2'>
+            <label
+              for='message'
+              class='block text-sm font-medium text-foreground'
+              >Mensaje</label
+            >
             <textarea
-              id="message"
-              name="message"
-              rows="4"
-              placeholder="Cuéntanos sobre tu necesidad..."
-              minlength="10"
-              class="w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20"
+              id='message'
+              name='message'
+              rows='4'
+              placeholder='Cuéntanos sobre tu necesidad...'
+              minlength='10'
+              class='w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
               required
             ></textarea>
           </div>
 
           <button
-            type="submit"
-            id="contact-submit"
-            class="inline-flex w-full cursor-pointer items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70"
+            type='submit'
+            id='contact-submit'
+            class='inline-flex w-full cursor-pointer items-center justify-center rounded-md bg-primary px-6 py-3 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:cursor-not-allowed disabled:opacity-70'
           >
-            <Send class="mr-2 h-5 w-5" />
-            <span id="contact-submit-text">Enviar Solicitud</span>
+            <Send class='mr-2 h-5 w-5' />
+            <span id='contact-submit-text'>Enviar Solicitud</span>
           </button>
-          <p id="contact-status" class="hidden rounded-md px-4 py-3 text-sm" role="status"></p>
+          <p
+            id='contact-status'
+            class='hidden rounded-md px-4 py-3 text-sm'
+            role='status'
+          >
+          </p>
         </form>
       </div>
 
       <!-- Contact Info & WhatsApp -->
-      <div class="space-y-8">
+      <div class='space-y-8'>
         <!-- Contact Info Cards -->
-        <div class="grid gap-4 sm:grid-cols-2">
-          {contactInfo.map((item) => (
-            <div class="rounded-xl border border-border bg-card p-5 transition-all hover:border-secondary/50">
-              <div class="flex items-start gap-4">
-                <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/10 text-secondary">
-                  {item.icon === "MapPin" && <MapPin class="h-5 w-5" />}
-                  {item.icon === "Phone" && <Phone class="h-5 w-5" />}
-                  {item.icon === "Mail" && <Mail class="h-5 w-5" />}
-                  {item.icon === "Clock" && <Clock class="h-5 w-5" />}
-                </div>
-                <div>
-                  <p class="font-semibold text-foreground">
-                    {item.title}
-                  </p>
-                  <p class="text-sm text-muted-foreground">
-                    {item.content}
-                  </p>
+        <div class='grid gap-4 sm:grid-cols-2'>
+          {
+            contactInfo.map((item) => (
+              <div class='rounded-xl border border-border bg-card p-5 transition-all hover:border-secondary/50'>
+                <div class='flex items-start gap-4'>
+                  <div class='flex h-10 w-10 items-center justify-center rounded-lg bg-secondary/10 text-secondary'>
+                    {item.icon === 'MapPin' && <MapPin class='h-5 w-5' />}
+                    {item.icon === 'Phone' && <Phone class='h-5 w-5' />}
+                    {item.icon === 'Mail' && <Mail class='h-5 w-5' />}
+                    {item.icon === 'Clock' && <Clock class='h-5 w-5' />}
+                  </div>
+                  <div>
+                    <p class='font-semibold text-foreground'>{item.title}</p>
+                    <p class='text-sm text-muted-foreground'>{item.content}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
 
         <!-- WhatsApp CTA -->
-        <div class="rounded-2xl border border-green-500/30 bg-green-500/10 p-8 dark:border-green-300/25 dark:bg-green-300/5">
-          <div class="flex items-center gap-4 mb-4">
-            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-white dark:bg-green-400 dark:text-green-950">
-              <MessageCircle class="h-7 w-7" />
+        <div
+          class='rounded-2xl border border-green-500/30 bg-green-500/10 p-8 dark:border-green-300/25 dark:bg-green-300/5'
+        >
+          <div class='flex items-center gap-4 mb-4'>
+            <div
+              class='flex h-14 w-14 items-center justify-center rounded-full bg-green-600 text-white dark:bg-green-400 dark:text-green-950'
+            >
+              <MessageCircle class='h-7 w-7' />
             </div>
             <div>
-              <h3 class="text-xl font-bold text-foreground">
+              <h3 class='text-xl font-bold text-foreground'>
                 WhatsApp Directo
               </h3>
-              <p class="text-muted-foreground dark:text-green-100/80">
+              <p class='text-muted-foreground dark:text-green-100/80'>
                 Respuesta inmediata
               </p>
             </div>
           </div>
-          <p class="text-muted-foreground mb-6 dark:text-green-100/80">
-            Escríbenos directamente por WhatsApp para una atención más
-            rápida y personalizada.
+          <p class='text-muted-foreground mb-6 dark:text-green-100/80'>
+            Escríbenos directamente por WhatsApp para una atención más rápida y
+            personalizada.
           </p>
           <a
-            href="https://wa.me/56945702260"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="w-full inline-flex items-center justify-center rounded-md bg-green-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-green-700 dark:bg-green-300 dark:text-green-950 dark:hover:bg-green-200"
+            href='https://wa.me/56945702260'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='w-full inline-flex items-center justify-center rounded-md bg-green-600 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-green-700 dark:bg-green-300 dark:text-green-950 dark:hover:bg-green-200'
           >
-            <MessageCircle class="mr-2 h-5 w-5" />
+            <MessageCircle class='mr-2 h-5 w-5' />
             Chatear por WhatsApp
           </a>
         </div>
 
         <!-- Map Placeholder -->
         <div
-          id="zona-geografica"
-          class="rounded-2xl border border-border bg-card p-8"
+          id='zona-geografica'
+          class='rounded-2xl border border-border bg-card p-8'
         >
-          <h3 class="text-xl font-bold text-foreground mb-4">
+          <h3 class='text-xl font-bold text-foreground mb-4'>
             Zona Geográfica
           </h3>
-          <p class="text-muted-foreground mb-4">
+          <p class='text-muted-foreground mb-4'>
             Operamos en todo Chile con cobertura nacional. Nuestras oficinas
             principales se encuentran en Santiago.
           </p>
           <iframe
-            title="Ubicación Procobro en Google Maps"
-            src="https://www.google.com/maps?q=Neveria%204444%2C%20Las%20Condes%2C%20RM&output=embed"
-            class="aspect-video w-full rounded-xl border-0"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
+            title='Ubicación Procobro en Google Maps'
+            src='https://www.google.com/maps?q=Neveria%204444%2C%20Las%20Condes%2C%20RM&output=embed'
+            class='aspect-video w-full rounded-xl border-0'
+            loading='lazy'
+            referrerpolicy='no-referrer-when-downgrade'
           ></iframe>
           <a
-            href="https://maps.app.goo.gl/KNC7FT7WuW6X5XvQ8"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-4 inline-flex items-center text-sm font-medium text-secondary hover:underline"
+            href='https://maps.app.goo.gl/KNC7FT7WuW6X5XvQ8'
+            target='_blank'
+            rel='noopener noreferrer'
+            class='mt-4 inline-flex items-center text-sm font-medium text-secondary hover:underline'
           >
             Ver ubicación en Google Maps
           </a>
@@ -262,24 +320,129 @@ const contactInfo = [
 
 <script>
   const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT || '';
-  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
-  const contactSubmit = document.getElementById('contact-submit') as HTMLButtonElement;
+  const contactForm = document.getElementById(
+    'contact-form',
+  ) as HTMLFormElement;
+  const contactSubmit = document.getElementById(
+    'contact-submit',
+  ) as HTMLButtonElement;
   const contactSubmitText = document.getElementById('contact-submit-text');
   const contactStatus = document.getElementById('contact-status');
+  const contactEmail = document.getElementById('email') as HTMLInputElement;
+  const contactPhone = document.getElementById('phone') as HTMLInputElement;
+  const validChileanAreaCodes = [
+    '2',
+    '32',
+    '33',
+    '34',
+    '35',
+    '41',
+    '42',
+    '43',
+    '45',
+    '51',
+    '52',
+    '53',
+    '55',
+    '57',
+    '58',
+    '61',
+    '63',
+    '64',
+    '65',
+    '67',
+    '71',
+    '72',
+    '73',
+    '75',
+    '44',
+  ];
+  const phoneValidationMessage =
+    'Ingresa un teléfono chileno válido con código de área, por ejemplo +56 9 1234 5678 o +56 2 2345 6789.';
 
   const setContactStatus = (message: string, type: 'success' | 'error') => {
     if (!contactStatus) return;
     contactStatus.textContent = message;
-    contactStatus.classList.remove('hidden', 'bg-green-500/10', 'text-green-700', 'dark:text-green-300', 'bg-red-500/10', 'text-red-700', 'dark:text-red-300');
+    contactStatus.classList.remove(
+      'hidden',
+      'bg-green-500/10',
+      'text-green-700',
+      'dark:text-green-300',
+      'bg-red-500/10',
+      'text-red-700',
+      'dark:text-red-300',
+    );
     if (type === 'success') {
-      contactStatus.classList.add('bg-green-500/10', 'text-green-700', 'dark:text-green-300');
+      contactStatus.classList.add(
+        'bg-green-500/10',
+        'text-green-700',
+        'dark:text-green-300',
+      );
     } else {
-      contactStatus.classList.add('bg-red-500/10', 'text-red-700', 'dark:text-red-300');
+      contactStatus.classList.add(
+        'bg-red-500/10',
+        'text-red-700',
+        'dark:text-red-300',
+      );
     }
   };
-  
+
+  const trimContactEmail = () => {
+    if (!contactEmail) return;
+    contactEmail.value = contactEmail.value.trim();
+  };
+
+  const getNationalPhoneNumber = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+
+    if (digits.startsWith('56') && digits.length === 11) {
+      return digits.slice(2);
+    }
+
+    if (digits.startsWith('0') && digits.length === 10) {
+      return digits.slice(1);
+    }
+
+    return digits.length === 9 ? digits : '';
+  };
+
+  const isValidChileanPhone = (value: string) => {
+    const nationalNumber = getNationalPhoneNumber(value);
+
+    if (!nationalNumber) return false;
+
+    if (nationalNumber.startsWith('9')) {
+      return /^\d{9}$/.test(nationalNumber);
+    }
+
+    return validChileanAreaCodes.some((areaCode) => {
+      const subscriberLength = areaCode === '2' ? 8 : 7;
+      return (
+        nationalNumber.startsWith(areaCode) &&
+        nationalNumber.length === areaCode.length + subscriberLength
+      );
+    });
+  };
+
+  const validateContactPhone = () => {
+    if (!contactPhone) return;
+
+    if (!contactPhone.value.trim() || isValidChileanPhone(contactPhone.value)) {
+      contactPhone.setCustomValidity('');
+      return;
+    }
+
+    contactPhone.setCustomValidity(phoneValidationMessage);
+  };
+
+  contactPhone?.addEventListener('input', validateContactPhone);
+  contactEmail?.addEventListener('blur', trimContactEmail);
+
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    trimContactEmail();
+    validateContactPhone();
 
     if (!contactForm.checkValidity()) {
       contactForm.reportValidity();
@@ -316,12 +479,19 @@ const contactInfo = [
         throw new Error('No se pudo enviar la solicitud');
       }
 
-      if (contactSubmitText) contactSubmitText.textContent = '¡Enviado con éxito!';
-      setContactStatus('Gracias por contactarnos. Nos comunicaremos pronto.', 'success');
+      if (contactSubmitText)
+        contactSubmitText.textContent = '¡Enviado con éxito!';
+      setContactStatus(
+        'Gracias por contactarnos. Nos comunicaremos pronto.',
+        'success',
+      );
       contactForm.reset();
     } catch (error) {
       if (contactSubmitText) contactSubmitText.textContent = 'Enviar Solicitud';
-      setContactStatus('No pudimos enviar el formulario. Escríbenos a contacto@procobro.cl o por WhatsApp para recibir atención inmediata.', 'error');
+      setContactStatus(
+        'No pudimos enviar el formulario. Escríbenos a contacto@procobro.cl o por WhatsApp para recibir atención inmediata.',
+        'error',
+      );
     } finally {
       window.setTimeout(() => {
         contactSubmit.disabled = false;
