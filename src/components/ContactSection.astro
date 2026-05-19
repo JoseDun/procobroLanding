@@ -129,8 +129,6 @@ const contactInfo = [
                   name='email'
                   type='email'
                   placeholder='tu@email.com'
-                  pattern='[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}'
-                  title='Ingresa un email válido, por ejemplo tu@email.com'
                   autocomplete='email'
                   inputmode='email'
                   class='h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 text-sm focus:border-ring focus:outline-none focus:ring-2 focus:ring-ring/20'
@@ -320,129 +318,101 @@ const contactInfo = [
 
 <script>
   const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT || '';
-  const contactForm = document.getElementById(
-    'contact-form',
-  ) as HTMLFormElement;
-  const contactSubmit = document.getElementById(
-    'contact-submit',
-  ) as HTMLButtonElement;
+  const contactForm = document.getElementById('contact-form') as HTMLFormElement;
+  const contactSubmit = document.getElementById('contact-submit') as HTMLButtonElement;
   const contactSubmitText = document.getElementById('contact-submit-text');
   const contactStatus = document.getElementById('contact-status');
   const contactEmail = document.getElementById('email') as HTMLInputElement;
   const contactPhone = document.getElementById('phone') as HTMLInputElement;
-  const validChileanAreaCodes = [
-    '2',
-    '32',
-    '33',
-    '34',
-    '35',
-    '41',
-    '42',
-    '43',
-    '45',
-    '51',
-    '52',
-    '53',
-    '55',
-    '57',
-    '58',
-    '61',
-    '63',
-    '64',
-    '65',
-    '67',
-    '71',
-    '72',
-    '73',
-    '75',
-    '44',
-  ];
-  const phoneValidationMessage =
-    'Ingresa un teléfono chileno válido con código de área, por ejemplo +56 9 1234 5678 o +56 2 2345 6789.';
 
+  // ─── Email ────────────────────────────────────────────────────────────────
+  // Requiere dominio con al menos un punto y TLD de ≥ 2 chars.
+  // No se puede confiar solo en pattern + type="email" (comportamiento inconsistente entre browsers).
+  const EMAIL_REGEX = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
+
+  const validateEmail = () => {
+    const value = contactEmail.value.trim();
+    contactEmail.value = value; // trim in-place
+    if (value && !EMAIL_REGEX.test(value)) {
+      contactEmail.setCustomValidity('Ingresa un email válido, por ejemplo tu@email.com');
+    } else {
+      contactEmail.setCustomValidity('');
+    }
+  };
+
+  contactEmail?.addEventListener('input', validateEmail);
+  contactEmail?.addEventListener('blur', validateEmail);
+
+  // ─── Teléfono ─────────────────────────────────────────────────────────────
+  // Normaliza el valor ingresado a número nacional de 9 dígitos.
+  // Soporta: +56XXXXXXXXX, 56XXXXXXXXX, 0XXXXXXXXX, XXXXXXXXX
+  const getNationalNumber = (value: string): string => {
+    const digits = value.replace(/\D/g, '');
+
+    if (digits.startsWith('56') && digits.length === 11) return digits.slice(2);  // +56 X XXXX XXXX
+    if (digits.startsWith('0') && digits.length === 10) return digits.slice(1);   // 0X XXXX XXXX
+    if (digits.length === 9) return digits;                                        // X XXXX XXXX
+
+    return '';
+  };
+
+  // Regex por tipo de número (9 dígitos en formato nacional):
+  //   Móvil    : 9 + dígito 1-9 + 7 dígitos   → ej: 9 1234 5678
+  //   Santiago : 2 + 8 dígitos                 → ej: 2 2345 6789
+  //   Regiones : código de 2 dígitos + 7 dígitos
+  const REGIONAL_CODES = '32|33|34|35|41|42|43|44|45|51|52|53|55|57|58|61|63|64|65|67|71|72|73|75';
+
+  const PHONE_PATTERNS: RegExp[] = [
+    /^9[1-9]\d{7}$/,                              // Móvil (9X XXX XXXX, X ≠ 0)
+    /^2\d{8}$/,                                   // Santiago (RM)
+    new RegExp(`^(${REGIONAL_CODES})\\d{7}$`),    // Regiones
+  ];
+
+  const isValidChileanPhone = (value: string): boolean => {
+    const national = getNationalNumber(value);
+    if (!national) return false;
+    return PHONE_PATTERNS.some((re) => re.test(national));
+  };
+
+  const validatePhone = () => {
+    if (!contactPhone.value.trim() || isValidChileanPhone(contactPhone.value)) {
+      contactPhone.setCustomValidity('');
+    } else {
+      contactPhone.setCustomValidity(
+        'Ingresa un teléfono chileno válido, por ejemplo +56 9 1234 5678 o +56 2 2345 6789',
+      );
+    }
+  };
+
+  contactPhone?.addEventListener('input', validatePhone);
+  contactPhone?.addEventListener('blur', validatePhone);
+
+  // ─── Helpers UI ───────────────────────────────────────────────────────────
   const setContactStatus = (message: string, type: 'success' | 'error') => {
     if (!contactStatus) return;
     contactStatus.textContent = message;
     contactStatus.classList.remove(
       'hidden',
-      'bg-green-500/10',
-      'text-green-700',
-      'dark:text-green-300',
-      'bg-red-500/10',
-      'text-red-700',
-      'dark:text-red-300',
+      'bg-green-500/10', 'text-green-700', 'dark:text-green-300',
+      'bg-red-500/10',   'text-red-700',   'dark:text-red-300',
     );
-    if (type === 'success') {
-      contactStatus.classList.add(
-        'bg-green-500/10',
-        'text-green-700',
-        'dark:text-green-300',
-      );
-    } else {
-      contactStatus.classList.add(
-        'bg-red-500/10',
-        'text-red-700',
-        'dark:text-red-300',
-      );
-    }
+    contactStatus.classList.add(
+      type === 'success'
+        ? 'bg-green-500/10' : 'bg-red-500/10',
+      type === 'success'
+        ? 'text-green-700'  : 'text-red-700',
+      type === 'success'
+        ? 'dark:text-green-300' : 'dark:text-red-300',
+    );
   };
 
-  const trimContactEmail = () => {
-    if (!contactEmail) return;
-    contactEmail.value = contactEmail.value.trim();
-  };
-
-  const getNationalPhoneNumber = (value: string) => {
-    const digits = value.replace(/\D/g, '');
-
-    if (digits.startsWith('56') && digits.length === 11) {
-      return digits.slice(2);
-    }
-
-    if (digits.startsWith('0') && digits.length === 10) {
-      return digits.slice(1);
-    }
-
-    return digits.length === 9 ? digits : '';
-  };
-
-  const isValidChileanPhone = (value: string) => {
-    const nationalNumber = getNationalPhoneNumber(value);
-
-    if (!nationalNumber) return false;
-
-    if (nationalNumber.startsWith('9')) {
-      return /^\d{9}$/.test(nationalNumber);
-    }
-
-    return validChileanAreaCodes.some((areaCode) => {
-      const subscriberLength = areaCode === '2' ? 8 : 7;
-      return (
-        nationalNumber.startsWith(areaCode) &&
-        nationalNumber.length === areaCode.length + subscriberLength
-      );
-    });
-  };
-
-  const validateContactPhone = () => {
-    if (!contactPhone) return;
-
-    if (!contactPhone.value.trim() || isValidChileanPhone(contactPhone.value)) {
-      contactPhone.setCustomValidity('');
-      return;
-    }
-
-    contactPhone.setCustomValidity(phoneValidationMessage);
-  };
-
-  contactPhone?.addEventListener('input', validateContactPhone);
-  contactEmail?.addEventListener('blur', trimContactEmail);
-
+  // ─── Submit ───────────────────────────────────────────────────────────────
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    trimContactEmail();
-    validateContactPhone();
+    // Forzar revalidación antes del submit
+    validateEmail();
+    validatePhone();
 
     if (!contactForm.checkValidity()) {
       contactForm.reportValidity();
@@ -455,19 +425,17 @@ const contactInfo = [
 
     const data = Object.fromEntries(new FormData(contactForm));
     const payload = {
-      name: String(data.name || ''),
+      name:    String(data.name    || ''),
       company: String(data.company || ''),
-      email: String(data.email || ''),
-      phone: String(data.phone || ''),
+      email:   String(data.email   || ''),
+      phone:   String(data.phone   || ''),
       service: String(data.service || ''),
       message: String(data.message || ''),
       source: 'procobro-landing-contact',
     };
 
     try {
-      if (!contactEndpoint) {
-        throw new Error('Endpoint de contacto no configurado');
-      }
+      if (!contactEndpoint) throw new Error('Endpoint de contacto no configurado');
 
       const response = await fetch(contactEndpoint, {
         method: 'POST',
@@ -475,18 +443,12 @@ const contactInfo = [
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error('No se pudo enviar la solicitud');
-      }
+      if (!response.ok) throw new Error('No se pudo enviar la solicitud');
 
-      if (contactSubmitText)
-        contactSubmitText.textContent = '¡Enviado con éxito!';
-      setContactStatus(
-        'Gracias por contactarnos. Nos comunicaremos pronto.',
-        'success',
-      );
+      if (contactSubmitText) contactSubmitText.textContent = '¡Enviado con éxito!';
+      setContactStatus('Gracias por contactarnos. Nos comunicaremos pronto.', 'success');
       contactForm.reset();
-    } catch (error) {
+    } catch {
       if (contactSubmitText) contactSubmitText.textContent = 'Enviar Solicitud';
       setContactStatus(
         'No pudimos enviar el formulario. Escríbenos a contacto@procobro.cl o por WhatsApp para recibir atención inmediata.',
