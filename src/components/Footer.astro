@@ -210,13 +210,13 @@ const termsSections = [
 
 <div
   id="legal-modal"
-  class="fixed inset-0 z-[70] hidden items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm"
+  class="modal-shell fixed inset-0 z-[70] hidden items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm"
   role="dialog"
   aria-modal="true"
   aria-label="Documento legal"
   aria-hidden="true"
 >
-  <div class="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-2xl sm:p-8">
+  <div class="modal-panel relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-2xl sm:p-8">
     <button
       type="button"
       id="legal-modal-close"
@@ -286,58 +286,56 @@ const termsSections = [
   const legalClose = document.getElementById('legal-modal-close');
   const legalPanels = document.querySelectorAll('[data-legal-panel]');
   const legalTriggers = document.querySelectorAll('[data-legal-open]');
-  let legalScrollPosition = 0;
+  const legalTransitionDuration = 260;
+  let legalCloseTimer: number | undefined;
 
   const lockLegalPageScroll = () => {
-    legalScrollPosition = window.scrollY;
     const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${legalScrollPosition}px`;
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-    document.body.style.overflow = 'hidden';
+    document.documentElement.classList.add('modal-scroll-locked');
+    document.body.classList.add('modal-scroll-locked');
     if (scrollbarWidth > 0) {
       document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
   };
 
   const unlockLegalPageScroll = () => {
-    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
-
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    document.body.style.overflow = '';
+    document.documentElement.classList.remove('modal-scroll-locked');
+    document.body.classList.remove('modal-scroll-locked');
     document.body.style.paddingRight = '';
-
-    document.documentElement.style.scrollBehavior = 'auto';
-    window.scrollTo({ top: legalScrollPosition, left: 0, behavior: 'auto' });
-    document.documentElement.style.scrollBehavior = previousScrollBehavior;
   };
 
   const closeLegalModal = () => {
-    if (!legalModal?.classList.contains('flex')) return;
+    if (!legalModal?.classList.contains('flex') || !legalModal.classList.contains('is-open')) return;
 
-    legalModal?.classList.add('hidden');
-    legalModal?.classList.remove('flex');
-    legalModal?.setAttribute('aria-hidden', 'true');
+    legalModal.classList.remove('is-open');
+    legalModal.setAttribute('aria-hidden', 'true');
     unlockLegalPageScroll();
+    legalCloseTimer = window.setTimeout(() => {
+      legalModal.classList.add('hidden');
+      legalModal.classList.remove('flex');
+    }, legalTransitionDuration);
   };
 
   const openLegalModal = (panelName: string) => {
+    if (legalCloseTimer) {
+      window.clearTimeout(legalCloseTimer);
+      legalCloseTimer = undefined;
+    }
+
     legalPanels.forEach(panel => {
       panel.classList.toggle('hidden', panel.getAttribute('data-legal-panel') !== panelName);
     });
     const wasClosed = legalModal?.classList.contains('hidden');
+    const shouldLockScroll = wasClosed || !legalModal?.classList.contains('is-open');
 
     legalModal?.classList.remove('hidden');
     legalModal?.classList.add('flex');
     legalModal?.setAttribute('aria-hidden', 'false');
-    if (wasClosed) {
+    requestAnimationFrame(() => {
+      legalModal?.classList.add('is-open');
+    });
+    if (shouldLockScroll) {
       lockLegalPageScroll();
     }
   };
