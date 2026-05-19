@@ -3,94 +3,152 @@ import { Image } from 'astro:assets';
 import { ExternalLink } from 'lucide-astro';
 
 const clients = [
-  { name: "Equifax", href: "https://sec.equifax.cl/compraonline/", logo: "/assets/client-equifax.webp", width: 260, height: 48 },
-  { name: "Autopista Vespucio Norte", href: "https://www.vespucionorte.cl/", logo: "/assets/client-vespucio-norte.webp", width: 1348, height: 251 },
-  { name: "Autopista Vespucio Oriente", href: "https://www.avo.cl/", logo: "/assets/client-avo.webp", width: 415, height: 118 },
-  { name: "Autopista Central", href: "https://www.autopistacentral.cl/", logo: "/assets/client-autopista-central.webp", width: 225, height: 150 },
-  { name: "Ruta del Maipo", href: "https://www.rutamaipo.cl/", logo: "/assets/client-ruta-maipo.webp", width: 768, height: 212 },
-  { name: "Sacyr", href: "https://sacyr.com/", logo: "/assets/client-sacyr.webp", width: 118, height: 31 },
-  { name: "Consorcio", href: "https://sitio.consorcio.cl/home", logo: "/assets/client-consorcio.webp", width: 137, height: 80 },
-  { name: "BCI Seguros", href: "https://www.bciseguros.cl/", logo: "/assets/client-bci-seguros.webp", width: 600, height: 136 },
+  {
+    name: 'Equifax',
+    href: 'https://sec.equifax.cl/compraonline/',
+    logo: '/assets/client-equifax.webp',
+    width: 260,
+    height: 48,
+  },
+  {
+    name: 'Autopista Vespucio Norte',
+    href: 'https://www.vespucionorte.cl/',
+    logo: '/assets/client-vespucio-norte.webp',
+    width: 1348,
+    height: 251,
+  },
+  {
+    name: 'Autopista Vespucio Oriente',
+    href: 'https://www.avo.cl/',
+    logo: '/assets/client-avo.webp',
+    width: 415,
+    height: 118,
+  },
+  {
+    name: 'Autopista Central',
+    href: 'https://www.autopistacentral.cl/',
+    logo: '/assets/client-autopista-central.webp',
+    width: 225,
+    height: 150,
+  },
+  {
+    name: 'Ruta del Maipo',
+    href: 'https://www.rutamaipo.cl/',
+    logo: '/assets/client-ruta-maipo.webp',
+    width: 768,
+    height: 212,
+  },
+  {
+    name: 'Sacyr',
+    href: 'https://sacyr.com/',
+    logo: '/assets/client-sacyr.webp',
+    width: 118,
+    height: 31,
+  },
+  {
+    name: 'Consorcio',
+    href: 'https://sitio.consorcio.cl/home',
+    logo: '/assets/client-consorcio.webp',
+    width: 137,
+    height: 80,
+  },
+  {
+    name: 'BCI Seguros',
+    href: 'https://www.bciseguros.cl/',
+    logo: '/assets/client-bci-seguros.webp',
+    width: 600,
+    height: 136,
+  },
 ];
 ---
 
-<section id="clientes" class="py-20 lg:py-24 bg-muted/30 overflow-hidden">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<section
+  id='clientes'
+  class='py-20 lg:py-24 bg-muted/30 overflow-hidden'
+>
+  <div class='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
     <!-- Header -->
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <span class="inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4">
+    <div class='text-center max-w-3xl mx-auto mb-12'>
+      <span
+        class='inline-block text-sm font-semibold uppercase tracking-wider text-secondary mb-4'
+      >
         Confían en Nosotros
       </span>
-      <h2 class="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-        Clientes que <span class="text-secondary">Nos Eligen</span>
+      <h2 class='text-3xl font-bold tracking-tight text-foreground sm:text-4xl'>
+        Clientes que <span class='text-secondary'>Nos Eligen</span>
       </h2>
-      <p class="mt-4 text-muted-foreground">
+      <p class='mt-4 text-muted-foreground'>
         Trabajamos con empresas lideres en diversos sectores
       </p>
     </div>
 
     <!-- Infinite Scroll Animation -->
-    <div class="relative overflow-hidden">
-      <div class="clients-marquee flex w-max" data-clients-marquee data-duration="28">
-        {[0, 1].map((setIndex) => (
-          <div class="clients-marquee-set flex shrink-0 gap-8 pr-8" aria-hidden={setIndex === 1 ? "true" : undefined}>
-            {clients.map((client) => (
-              <a
-                href={client.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex h-32 w-60 flex-shrink-0 flex-col items-center rounded-xl border border-border bg-card p-5 transition-colors hover:border-secondary/50"
-                aria-label={`Visitar sitio de ${client.name}`}
-                tabindex={setIndex === 1 ? "-1" : undefined}
-                draggable="false"
-              >
-                <div class="flex min-h-0 flex-1 items-center justify-center">
-                  <Image
-                    src={client.logo}
-                    alt={client.name}
-                    width={client.width}
-                    height={client.height}
-                    class="max-h-14 max-w-full object-contain"
-                    loading="lazy"
-                    draggable="false"
-                  />
-                </div>
-                <div class="mt-auto flex h-5 items-center gap-1 text-center">
-                  <p class="font-semibold text-foreground text-xs">
-                    {client.name}
-                  </p>
-                  <ExternalLink class="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-                </div>
-              </a>
-            ))}
-          </div>
-        ))}
+    <div class='relative overflow-hidden'>
+      <div
+        class='clients-marquee flex w-max'
+        data-clients-marquee
+        data-duration='28'
+      >
+        {
+          [0, 1].map((setIndex) => (
+            <div
+              class='clients-marquee-set flex shrink-0 gap-8 pr-8'
+              aria-hidden={setIndex === 1 ? 'true' : undefined}
+            >
+              {clients.map((client) => (
+                <a
+                  href={client.href}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  class='group flex h-32 w-60 flex-shrink-0 flex-col items-center rounded-xl border border-border bg-card p-5 transition-colors hover:border-secondary/50'
+                  aria-label={`Visitar sitio de ${client.name}`}
+                  tabindex={setIndex === 1 ? '-1' : undefined}
+                  draggable='false'
+                >
+                  <div class='flex min-h-0 flex-1 items-center justify-center'>
+                    <Image
+                      src={client.logo}
+                      alt={client.name}
+                      width={client.width}
+                      height={client.height}
+                      class='max-h-14 max-w-full object-contain'
+                      loading='lazy'
+                      draggable='false'
+                    />
+                  </div>
+                  <div class='mt-auto flex h-5 items-center gap-1 text-center'>
+                    <p class='font-semibold text-foreground text-xs'>
+                      {client.name}
+                    </p>
+                    <ExternalLink class='h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100' />
+                  </div>
+                </a>
+              ))}
+            </div>
+          ))
+        }
       </div>
     </div>
 
     <!-- Stats -->
-    <div class="mt-16 grid grid-cols-2 gap-8 lg:grid-cols-4">
-      <div class="text-center">
-        <div class="text-4xl font-bold text-primary dark:text-white">+500 Mil</div>
-        <p class="mt-2 text-sm text-muted-foreground">
-          Clientes Activos
-        </p>
+    <div class='mt-16 grid grid-cols-2 gap-8 lg:grid-cols-4'>
+      <div class='text-center'>
+        <div class='text-4xl font-bold text-primary dark:text-white'>
+          +500 Mil
+        </div>
+        <p class='mt-2 text-sm text-muted-foreground'>Clientes Activos</p>
       </div>
-      <div class="text-center">
-        <div class="text-4xl font-bold text-primary dark:text-white">+10</div>
-        <p class="mt-2 text-sm text-muted-foreground">
-          Años de Experiencia
-        </p>
+      <div class='text-center'>
+        <div class='text-4xl font-bold text-primary dark:text-white'>+10</div>
+        <p class='mt-2 text-sm text-muted-foreground'>Años de Experiencia</p>
       </div>
-      <div class="text-center">
-        <div class="text-4xl font-bold text-primary dark:text-white">+10M</div>
-        <p class="mt-2 text-sm text-muted-foreground">
-          Casos Gestionados
-        </p>
+      <div class='text-center'>
+        <div class='text-4xl font-bold text-primary dark:text-white'>+10M</div>
+        <p class='mt-2 text-sm text-muted-foreground'>Casos Gestionados</p>
       </div>
-      <div class="text-center">
-        <div class="text-4xl font-bold text-primary dark:text-white">98%</div>
-        <p class="mt-2 text-sm text-muted-foreground">
+      <div class='text-center'>
+        <div class='text-4xl font-bold text-primary dark:text-white'>98%</div>
+        <p class='mt-2 text-sm text-muted-foreground'>
           Satisfacción del Cliente
         </p>
       </div>
@@ -137,10 +195,10 @@ const clients = [
 </style>
 
 <script>
-  const marquees = document.querySelectorAll("[data-clients-marquee]");
+  const marquees = document.querySelectorAll('[data-clients-marquee]');
 
   marquees.forEach((marquee) => {
-    const set = marquee.querySelector(".clients-marquee-set");
+    const set = marquee.querySelector('.clients-marquee-set');
 
     if (!(marquee instanceof HTMLElement) || !(set instanceof HTMLElement)) {
       return;
@@ -163,7 +221,7 @@ const clients = [
         return 0;
       }
 
-      return -((((-value) % setWidth) + setWidth) % setWidth);
+      return -(((-value % setWidth) + setWidth) % setWidth);
     };
 
     const applyTransform = () => {
@@ -184,17 +242,17 @@ const clients = [
 
       isDragging = false;
       activePointerId = null;
-      marquee.classList.remove("is-dragging");
+      marquee.classList.remove('is-dragging');
 
       if (marquee.hasPointerCapture(event.pointerId)) {
         marquee.releasePointerCapture(event.pointerId);
       }
     };
 
-    marquee.classList.add("is-interactive");
+    marquee.classList.add('is-interactive');
     updateMetrics();
 
-    marquee.addEventListener("pointerdown", (event) => {
+    marquee.addEventListener('pointerdown', (event) => {
       if (event.button !== 0) {
         return;
       }
@@ -204,11 +262,10 @@ const clients = [
       startOffset = offset;
       activePointerId = event.pointerId;
       shouldBlockClick = false;
-      marquee.classList.add("is-dragging");
-      marquee.setPointerCapture(event.pointerId);
+      marquee.classList.add('is-dragging');
     });
 
-    marquee.addEventListener("pointermove", (event) => {
+    marquee.addEventListener('pointermove', (event) => {
       if (!isDragging || activePointerId !== event.pointerId) {
         return;
       }
@@ -217,23 +274,27 @@ const clients = [
 
       if (Math.abs(dragDistance) > 4) {
         shouldBlockClick = true;
+
+        if (!marquee.hasPointerCapture(event.pointerId)) {
+          marquee.setPointerCapture(event.pointerId);
+        }
       }
 
       offset = normalizeOffset(startOffset + dragDistance);
       applyTransform();
     });
 
-    marquee.addEventListener("pointerup", stopDragging);
-    marquee.addEventListener("pointercancel", stopDragging);
-    marquee.addEventListener("mouseenter", () => {
+    marquee.addEventListener('pointerup', stopDragging);
+    marquee.addEventListener('pointercancel', stopDragging);
+    marquee.addEventListener('mouseenter', () => {
       isHovering = true;
     });
-    marquee.addEventListener("mouseleave", () => {
+    marquee.addEventListener('mouseleave', () => {
       isHovering = false;
     });
 
     marquee.addEventListener(
-      "click",
+      'click',
       (event) => {
         if (!shouldBlockClick) {
           return;
@@ -243,14 +304,14 @@ const clients = [
         event.stopPropagation();
         shouldBlockClick = false;
       },
-      true
+      true,
     );
 
-    if ("ResizeObserver" in window) {
+    if ('ResizeObserver' in window) {
       const resizeObserver = new ResizeObserver(updateMetrics);
       resizeObserver.observe(set);
     } else {
-      window.addEventListener("resize", updateMetrics);
+      window.addEventListener('resize', updateMetrics);
     }
 
     const animate = (time) => {
