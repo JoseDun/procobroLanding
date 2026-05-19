@@ -325,17 +325,50 @@ const services = [
   const serviceClose = document.getElementById('service-modal-close');
   const serviceModalTitle = document.getElementById('service-modal-title');
   const servicePanels = document.querySelectorAll('[data-service-panel]');
-  const serviceSection = document.getElementById('servicios');
   const serviceIds = Array.from(servicePanels).map(panel => panel.getAttribute('data-service-panel') || '');
+  let serviceScrollPosition = 0;
+
+  const lockServicePageScroll = () => {
+    serviceScrollPosition = window.scrollY;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${serviceScrollPosition}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+  };
+
+  const unlockServicePageScroll = () => {
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: serviceScrollPosition, left: 0, behavior: 'auto' });
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+  };
 
   const closeServiceModal = () => {
+    if (!serviceModal?.classList.contains('flex')) return;
+
     serviceModal?.classList.add('hidden');
     serviceModal?.classList.remove('flex');
     serviceModal?.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    unlockServicePageScroll();
   };
 
-  const openServiceModal = (serviceId: string, shouldScroll = false) => {
+  const openServiceModal = (serviceId: string) => {
     if (!serviceIds.includes(serviceId)) return;
 
     let activeServiceTitle = '';
@@ -352,13 +385,13 @@ const services = [
         : 'Detalle de servicio';
     }
 
+    const wasClosed = serviceModal?.classList.contains('hidden');
+
     serviceModal?.classList.remove('hidden');
     serviceModal?.classList.add('flex');
     serviceModal?.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-
-    if (shouldScroll) {
-      serviceSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (wasClosed) {
+      lockServicePageScroll();
     }
   };
 
@@ -371,7 +404,7 @@ const services = [
 
     event.preventDefault();
     history.pushState(null, '', link.hash);
-    openServiceModal(serviceId, true);
+    openServiceModal(serviceId);
   });
 
   serviceClose?.addEventListener('click', closeServiceModal);

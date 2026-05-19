@@ -286,22 +286,60 @@ const termsSections = [
   const legalClose = document.getElementById('legal-modal-close');
   const legalPanels = document.querySelectorAll('[data-legal-panel]');
   const legalTriggers = document.querySelectorAll('[data-legal-open]');
+  let legalScrollPosition = 0;
+
+  const lockLegalPageScroll = () => {
+    legalScrollPosition = window.scrollY;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${legalScrollPosition}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+  };
+
+  const unlockLegalPageScroll = () => {
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    document.body.style.paddingRight = '';
+
+    document.documentElement.style.scrollBehavior = 'auto';
+    window.scrollTo({ top: legalScrollPosition, left: 0, behavior: 'auto' });
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+  };
 
   const closeLegalModal = () => {
+    if (!legalModal?.classList.contains('flex')) return;
+
     legalModal?.classList.add('hidden');
     legalModal?.classList.remove('flex');
     legalModal?.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    unlockLegalPageScroll();
   };
 
   const openLegalModal = (panelName: string) => {
     legalPanels.forEach(panel => {
       panel.classList.toggle('hidden', panel.getAttribute('data-legal-panel') !== panelName);
     });
+    const wasClosed = legalModal?.classList.contains('hidden');
+
     legalModal?.classList.remove('hidden');
     legalModal?.classList.add('flex');
     legalModal?.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    if (wasClosed) {
+      lockLegalPageScroll();
+    }
   };
 
   legalTriggers.forEach(trigger => {
