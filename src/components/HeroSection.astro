@@ -34,32 +34,10 @@ const valuePoints = [
           </span>
         </div>
 
-        <h1
-          class="typewriter-heading relative text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
-          aria-label="Gestión Profesional de Cobranza y Servicios"
-        >
-          <span class="block invisible" aria-hidden="true">
-            <span class="block">Gestión Profesional</span>
-            <span class="mt-2 block text-secondary">
-              de Cobranza y Servicios
-            </span>
-          </span>
-
-          <span class="absolute inset-0 block" aria-hidden="true">
-            <span
-              class="typewriter-line block"
-              data-typewriter-line
-              data-typewriter-text="Gestión Profesional"
-            >
-              Gestión Profesional
-            </span>
-            <span
-              class="typewriter-line mt-2 block text-secondary"
-              data-typewriter-line
-              data-typewriter-text="de Cobranza y Servicios"
-            >
-              de Cobranza y Servicios
-            </span>
+        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <span class="block">Gestión Profesional</span>
+          <span class="mt-2 block text-secondary">
+            de Cobranza y Servicios
           </span>
         </h1>
 
@@ -132,16 +110,6 @@ const valuePoints = [
             </a>
           </div>
         </div>
-
-        <!-- Floating Elements -->
-<!--         <div class="absolute -left-4 top-1/4 hidden rounded-lg border border-white/10 bg-primary/90 px-4 py-2 backdrop-blur-sm lg:block">
-          <div class="flex items-center gap-2">
-            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-500/20">
-              <div class="h-2 w-2 rounded-full bg-green-500"></div>
-            </div>
-            <span class="text-sm text-white">Activo 24/7</span>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -162,101 +130,3 @@ const valuePoints = [
     </svg>
   </div>
 </section>
-
-<script>
-  const typewriterLines = Array.from(
-    document.querySelectorAll<HTMLElement>('[data-typewriter-line]')
-  );
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const sleep = (duration: number) => new Promise(resolve => window.setTimeout(resolve, duration));
-
-  const typeLine = async (line: HTMLElement, text: string) => {
-    line.classList.add('is-typing');
-
-    for (let index = 0; index <= text.length; index += 1) {
-      line.textContent = text.slice(0, index);
-      await sleep(index === 0 ? 180 : 42);
-    }
-
-    line.classList.remove('is-typing');
-  };
-
-  const eraseLine = async (line: HTMLElement, text: string) => {
-    line.classList.add('is-typing');
-
-    for (let index = text.length; index >= 0; index -= 1) {
-      line.textContent = text.slice(0, index);
-      await sleep(24);
-    }
-
-    line.classList.remove('is-typing');
-  };
-
-  const runTypewriter = async () => {
-    if (!typewriterLines.length || reduceMotion) return;
-
-    const lines = typewriterLines.map(line => line.dataset.typewriterText || line.textContent?.trim() || '');
-    typewriterLines.forEach(line => {
-      line.textContent = '';
-      line.classList.remove('is-typing');
-    });
-
-    while (true) {
-      for (const [lineIndex, text] of lines.entries()) {
-        const line = typewriterLines[lineIndex];
-        if (line) await typeLine(line, text);
-        await sleep(180);
-      }
-
-      typewriterLines.at(-1)?.classList.add('is-typing');
-      await sleep(1800);
-      typewriterLines.at(-1)?.classList.remove('is-typing');
-
-      for (let lineIndex = lines.length - 1; lineIndex >= 0; lineIndex -= 1) {
-        const line = typewriterLines[lineIndex];
-        if (line) await eraseLine(line, lines[lineIndex]);
-        await sleep(120);
-      }
-
-      await sleep(450);
-    }
-  };
-
-  runTypewriter();
-</script>
-
-<style>
-  .typewriter-line {
-    min-height: 1.05em;
-  }
-
-  .typewriter-line.is-typing::after {
-    display: inline-block;
-    width: 0.08em;
-    height: 0.82em;
-    margin-left: 0.08em;
-    vertical-align: -0.08em;
-    background: currentColor;
-    content: "";
-    animation: typewriter-blink 0.85s steps(2, start) infinite;
-  }
-
-  @keyframes typewriter-blink {
-    0%,
-    45% {
-      opacity: 1;
-    }
-
-    46%,
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .typewriter-line.is-typing::after {
-      display: none;
-    }
-  }
-</style>
