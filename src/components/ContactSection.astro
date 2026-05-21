@@ -68,6 +68,20 @@ const contactInfo = [
           id='contact-form'
           class='space-y-6'
         >
+          <div
+            class='hidden'
+            aria-hidden='true'
+          >
+            <label for='website'>Sitio web</label>
+            <input
+              id='website'
+              name='website'
+              type='text'
+              tabindex='-1'
+              autocomplete='off'
+            />
+          </div>
+
           <div class='grid gap-6 sm:grid-cols-2'>
             <div class='space-y-2'>
               <label
@@ -317,7 +331,7 @@ const contactInfo = [
 </section>
 
 <script>
-  const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT || '';
+  const contactEndpoint = import.meta.env.PUBLIC_CONTACT_FORM_ENDPOINT || '/api/contact.php';
   const contactForm = document.getElementById('contact-form') as HTMLFormElement;
   const contactSubmit = document.getElementById('contact-submit') as HTMLButtonElement;
   const contactSubmitText = document.getElementById('contact-submit-text');

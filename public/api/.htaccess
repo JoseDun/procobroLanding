@@ -1,0 +1,5 @@
+<FilesMatch "^contact\.config.*\.php$">
+  Require all denied
+  Order allow,deny
+  Deny from all
+</FilesMatch>

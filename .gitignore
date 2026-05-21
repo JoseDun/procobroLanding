@@ -8,6 +8,9 @@ dist/
 # Environment
 .env
 .env.*
+public/api/contact.config.php
+public/api/vendor/
+public/api/PHPMailer/
 
 # System
 .DS_Store
