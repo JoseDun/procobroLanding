@@ -3,207 +3,240 @@ import { Image } from 'astro:assets';
 import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-astro';
 
 const services = [
-  { name: "Cobranza", href: "#cobranza" },
-  { name: "Prejudicial", href: "#prejudicial" },
-  { name: "Judicial", href: "#judicial" },
-  { name: "Daños", href: "#danos" },
-  { name: "Defensas", href: "#defensas" },
-  { name: "Recuperación de Siniestros", href: "#siniestros" },
-  { name: "Telemarketing", href: "#telemarketing" },
-  { name: "Atención al Cliente", href: "#atencion" },
+  { name: 'Cobranza', href: '#cobranza' },
+  { name: 'Prejudicial', href: '#prejudicial' },
+  { name: 'Judicial', href: '#judicial' },
+  { name: 'Daños', href: '#danos' },
+  { name: 'Defensas', href: '#defensas' },
+  { name: 'Recuperación de Siniestros', href: '#siniestros' },
+  { name: 'Telemarketing', href: '#telemarketing' },
+  { name: 'Atención al Cliente', href: '#atencion' },
 ];
 
 const technologies = [
-  { name: "Inteligencia Artificial", href: "#ia" },
-  { name: "Omnicanalidad", href: "#omnicanalidad" },
-  { name: "CRM Propio", href: "#crm" },
-  { name: "Integraciones", href: "#integraciones" },
+  { name: 'Inteligencia Artificial', href: '#ia' },
+  { name: 'Omnicanalidad', href: '#omnicanalidad' },
+  { name: 'CRM Propio', href: '#crm' },
+  { name: 'Integraciones', href: '#integraciones' },
 ];
 ---
 
 <header
-  id="main-header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent"
+  id='main-header'
+  class='fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent'
 >
-  <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-20 items-center justify-between">
+  <nav class='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+    <div class='flex h-20 items-center justify-between'>
       <!-- Logo -->
-      <a href="#inicio" class="flex items-center" aria-label="Ir al inicio">
-        <span class="flex rounded-lg bg-white px-3 py-2 shadow-sm">
+      <a
+        href='#inicio'
+        class='flex items-center'
+        aria-label='Ir al inicio'
+      >
+        <span class='flex rounded-lg bg-white px-3 py-2 shadow-sm'>
           <Image
-            src="/assets/procobro-logo.webp"
-            alt="Procobro"
+            src='/assets/logo.jpeg'
+            alt='Procobro'
             width={1080}
             height={397}
-            class="h-8 w-auto"
-            loading="eager"
+            class='h-8 w-auto'
+            loading='eager'
           />
         </span>
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden lg:flex lg:items-center lg:gap-8">
+      <div class='hidden lg:flex lg:items-center lg:gap-8'>
         <a
-          href="#inicio"
-          class="text-sm font-medium text-white/90 transition-colors hover:text-secondary"
+          href='#inicio'
+          class='text-sm font-medium text-white/90 transition-colors hover:text-secondary'
         >
           Inicio
         </a>
 
         <!-- Tecnologías Dropdown -->
-        <div class="relative group">
-          <button class="flex items-center gap-1 text-sm font-medium text-white/90 transition-colors hover:text-secondary">
+        <div class='relative group'>
+          <button
+            class='flex items-center gap-1 text-sm font-medium text-white/90 transition-colors hover:text-secondary'
+          >
             Tecnologías
-            <ChevronDown class="h-4 w-4" />
+            <ChevronDown class='h-4 w-4' />
           </button>
-          <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-            <div class="w-60 rounded-md border border-border bg-card shadow-lg">
-              {technologies.map((tech) => (
-                <a
-                  href={tech.href}
-                  aria-label={`Ir a ${tech.name}`}
-                  class="block px-4 py-2 text-sm text-card-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
-                >
-                  {tech.name}
-                </a>
-              ))}
+          <div
+            class='absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all'
+          >
+            <div class='w-60 rounded-md border border-border bg-card shadow-lg'>
+              {
+                technologies.map((tech) => (
+                  <a
+                    href={tech.href}
+                    aria-label={`Ir a ${tech.name}`}
+                    class='block px-4 py-2 text-sm text-card-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md'
+                  >
+                    {tech.name}
+                  </a>
+                ))
+              }
             </div>
           </div>
         </div>
 
         <!-- Servicios Dropdown -->
-        <div class="relative group">
-          <button class="flex items-center gap-1 text-sm font-medium text-white/90 transition-colors hover:text-secondary">
+        <div class='relative group'>
+          <button
+            class='flex items-center gap-1 text-sm font-medium text-white/90 transition-colors hover:text-secondary'
+          >
             Servicios
-            <ChevronDown class="h-4 w-4" />
+            <ChevronDown class='h-4 w-4' />
           </button>
-          <div class="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
-            <div class="w-64 rounded-md border border-border bg-card shadow-lg">
-              {services.map((service) => (
-                <a
-                  href={service.href}
-                  aria-label={`Ir a ${service.name}`}
-                  class="block px-4 py-2 text-sm text-card-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md"
-                >
-                  {service.name}
-                </a>
-              ))}
+          <div
+            class='absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all'
+          >
+            <div class='w-64 rounded-md border border-border bg-card shadow-lg'>
+              {
+                services.map((service) => (
+                  <a
+                    href={service.href}
+                    aria-label={`Ir a ${service.name}`}
+                    class='block px-4 py-2 text-sm text-card-foreground hover:bg-muted transition-colors first:rounded-t-md last:rounded-b-md'
+                  >
+                    {service.name}
+                  </a>
+                ))
+              }
             </div>
           </div>
         </div>
 
         <a
-          href="#nosotros"
-          class="text-sm font-medium text-white/90 transition-colors hover:text-secondary"
+          href='#nosotros'
+          class='text-sm font-medium text-white/90 transition-colors hover:text-secondary'
         >
           Nosotros
         </a>
 
         <a
-          href="#contacto"
-          class="text-sm font-medium text-white/90 transition-colors hover:text-secondary"
+          href='#contacto'
+          class='text-sm font-medium text-white/90 transition-colors hover:text-secondary'
         >
           Contacto
         </a>
       </div>
 
       <!-- Desktop Actions -->
-      <div class="hidden lg:flex lg:items-center lg:gap-4">
+      <div class='hidden lg:flex lg:items-center lg:gap-4'>
         <button
-          id="theme-toggle"
-          class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-white/30 bg-transparent text-white transition-colors hover:bg-white/10"
-          aria-label="Cambiar tema"
+          id='theme-toggle'
+          class='flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-white/30 bg-transparent text-white transition-colors hover:bg-white/10'
+          aria-label='Cambiar tema'
         >
-          <Sun class="h-5 w-5 hidden dark:block" />
-          <Moon class="h-5 w-5 block dark:hidden" />
+          <Sun class='h-5 w-5 hidden dark:block' />
+          <Moon class='h-5 w-5 block dark:hidden' />
         </button>
         <a
-          href="#contacto"
-          class="inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-primary hover:bg-secondary/90 transition-colors"
+          href='#contacto'
+          class='inline-flex items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-primary hover:bg-secondary/90 transition-colors'
         >
           Contáctanos
         </a>
       </div>
 
       <!-- Mobile Menu Button -->
-      <div class="flex items-center gap-2 lg:hidden">
+      <div class='flex items-center gap-2 lg:hidden'>
         <button
-          id="theme-toggle-mobile"
-          class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-white/30 bg-transparent text-white transition-colors hover:bg-white/10"
-          aria-label="Cambiar tema"
+          id='theme-toggle-mobile'
+          class='flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-white/30 bg-transparent text-white transition-colors hover:bg-white/10'
+          aria-label='Cambiar tema'
         >
-          <Sun class="h-5 w-5 hidden dark:block" />
-          <Moon class="h-5 w-5 block dark:hidden" />
+          <Sun class='h-5 w-5 hidden dark:block' />
+          <Moon class='h-5 w-5 block dark:hidden' />
         </button>
         <button
-          id="mobile-menu-button"
-          class="flex h-10 w-10 items-center justify-center text-white"
-          aria-label="Abrir menú"
-          aria-expanded="false"
+          id='mobile-menu-button'
+          class='flex h-10 w-10 items-center justify-center text-white'
+          aria-label='Abrir menú'
+          aria-expanded='false'
         >
-          <Menu class="h-6 w-6" id="menu-icon" />
-          <X class="h-6 w-6 hidden" id="close-icon" />
+          <Menu
+            class='h-6 w-6'
+            id='menu-icon'
+          />
+          <X
+            class='h-6 w-6 hidden'
+            id='close-icon'
+          />
         </button>
       </div>
     </div>
 
     <!-- Mobile Navigation -->
-    <div id="mobile-menu" class="hidden border-t border-white/10 bg-primary/95 py-4 backdrop-blur-md lg:hidden">
-      <div class="flex flex-col gap-4 px-2">
+    <div
+      id='mobile-menu'
+      class='hidden border-t border-white/10 bg-primary/95 py-4 backdrop-blur-md lg:hidden'
+    >
+      <div class='flex flex-col gap-4 px-2'>
         <a
-          href="#inicio"
-          class="text-sm font-medium text-white/90 transition-colors hover:text-secondary"
+          href='#inicio'
+          class='text-sm font-medium text-white/90 transition-colors hover:text-secondary'
         >
           Inicio
         </a>
 
-        <div class="space-y-2">
-          <span class="text-xs font-semibold uppercase tracking-wider text-secondary">
+        <div class='space-y-2'>
+          <span
+            class='text-xs font-semibold uppercase tracking-wider text-secondary'
+          >
             Tecnologías
           </span>
-          {technologies.map((tech) => (
-            <a
-              href={tech.href}
-              aria-label={`Ir a ${tech.name}`}
-              class="block pl-4 text-sm text-white/80 transition-colors hover:text-secondary"
-            >
-              {tech.name}
-            </a>
-          ))}
+          {
+            technologies.map((tech) => (
+              <a
+                href={tech.href}
+                aria-label={`Ir a ${tech.name}`}
+                class='block pl-4 text-sm text-white/80 transition-colors hover:text-secondary'
+              >
+                {tech.name}
+              </a>
+            ))
+          }
         </div>
 
-        <div class="space-y-2">
-          <span class="text-xs font-semibold uppercase tracking-wider text-secondary">
+        <div class='space-y-2'>
+          <span
+            class='text-xs font-semibold uppercase tracking-wider text-secondary'
+          >
             Servicios
           </span>
-          {services.map((service) => (
-            <a
-              href={service.href}
-              aria-label={`Ir a ${service.name}`}
-              class="block pl-4 text-sm text-white/80 transition-colors hover:text-secondary"
-            >
-              {service.name}
-            </a>
-          ))}
+          {
+            services.map((service) => (
+              <a
+                href={service.href}
+                aria-label={`Ir a ${service.name}`}
+                class='block pl-4 text-sm text-white/80 transition-colors hover:text-secondary'
+              >
+                {service.name}
+              </a>
+            ))
+          }
         </div>
 
         <a
-          href="#nosotros"
-          class="text-sm font-medium text-white/90 transition-colors hover:text-secondary"
+          href='#nosotros'
+          class='text-sm font-medium text-white/90 transition-colors hover:text-secondary'
         >
           Nosotros
         </a>
 
         <a
-          href="#contacto"
-          class="text-sm font-medium text-white/90 transition-colors hover:text-secondary"
+          href='#contacto'
+          class='text-sm font-medium text-white/90 transition-colors hover:text-secondary'
         >
           Contacto
         </a>
 
         <a
-          href="#contacto"
-          class="inline-flex w-full items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-primary"
+          href='#contacto'
+          class='inline-flex w-full items-center justify-center rounded-md bg-secondary px-4 py-2 text-sm font-medium text-primary'
         >
           Contáctanos
         </a>
@@ -226,7 +259,11 @@ const technologies = [
       header?.classList.add('bg-primary/95', 'backdrop-blur-md', 'shadow-lg');
       header?.classList.remove('bg-transparent');
     } else {
-      header?.classList.remove('bg-primary/95', 'backdrop-blur-md', 'shadow-lg');
+      header?.classList.remove(
+        'bg-primary/95',
+        'backdrop-blur-md',
+        'shadow-lg',
+      );
       header?.classList.add('bg-transparent');
     }
   };
@@ -238,13 +275,15 @@ const technologies = [
     mobileMenu?.classList.toggle('hidden');
     menuIcon?.classList.toggle('hidden');
     closeIcon?.classList.toggle('hidden');
-    const isOpen = mobileMenu ? !mobileMenu.classList.contains('hidden') : false;
+    const isOpen = mobileMenu
+      ? !mobileMenu.classList.contains('hidden')
+      : false;
     mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
     syncHeaderState();
   });
 
   // Close mobile menu when clicking a link
-  mobileMenu?.querySelectorAll('a').forEach(link => {
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       mobileMenu?.classList.add('hidden');
       menuIcon?.classList.remove('hidden');

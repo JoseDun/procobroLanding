@@ -1,33 +1,40 @@
 ---
 import { Image } from 'astro:assets';
-import { Facebook, Twitter, Linkedin, Instagram, ArrowUp, X } from 'lucide-astro';
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  ArrowUp,
+  X,
+} from 'lucide-astro';
 
 const footerLinks = {
   servicios: [
-    { name: "Cobranza", href: "#cobranza" },
-    { name: "Prejudicial", href: "#prejudicial" },
-    { name: "Judicial", href: "#judicial" },
-    { name: "Daños", href: "#danos" },
-    { name: "Defensas", href: "#defensas" },
-    { name: "Recuperación de siniestros", href: "#siniestros" },
-    { name: "Telemarketing", href: "#telemarketing" },
-    { name: "Atención al Cliente", href: "#atencion" },
+    { name: 'Cobranza', href: '#cobranza' },
+    { name: 'Prejudicial', href: '#prejudicial' },
+    { name: 'Judicial', href: '#judicial' },
+    { name: 'Daños', href: '#danos' },
+    { name: 'Defensas', href: '#defensas' },
+    { name: 'Recuperación de siniestros', href: '#siniestros' },
+    { name: 'Telemarketing', href: '#telemarketing' },
+    { name: 'Atención al Cliente', href: '#atencion' },
   ],
   tecnologia: [
-    { name: "Inteligencia Artificial", href: "#ia" },
-    { name: "Omnicanalidad", href: "#omnicanalidad" },
-    { name: "CRM Propio", href: "#crm" },
-    { name: "Integraciones", href: "#integraciones" },
+    { name: 'Inteligencia Artificial', href: '#ia' },
+    { name: 'Omnicanalidad', href: '#omnicanalidad' },
+    { name: 'CRM Propio', href: '#crm' },
+    { name: 'Integraciones', href: '#integraciones' },
   ],
   empresa: [
-    { name: "Nosotros", href: "#nosotros" },
-    { name: "Clientes", href: "#clientes" },
-    { name: "Testimonios", href: "#testimonios" },
-    { name: "Contacto", href: "#contacto" },
+    { name: 'Nosotros', href: '#nosotros' },
+    { name: 'Clientes', href: '#clientes' },
+    { name: 'Testimonios', href: '#testimonios' },
+    { name: 'Contacto', href: '#contacto' },
   ],
   legal: [
-    { name: "Política de Privacidad", href: "#privacidad", modal: "privacy" },
-    { name: "Términos de Servicio", href: "#terminos", modal: "terms" },
+    { name: 'Política de Privacidad', href: '#privacidad', modal: 'privacy' },
+    { name: 'Términos de Servicio', href: '#terminos', modal: 'terms' },
   ],
 };
 
@@ -41,55 +48,128 @@ const footerLinks = {
 const currentYear = new Date().getFullYear();
 
 const privacySections = [
-  ["Datos que recopilamos", "Podemos recopilar nombre completo, RUT, correo electrónico, teléfono, empresa y cualquier información ingresada en formularios de contacto, consulta o desuscripción. También podemos recopilar datos técnicos de navegación, como dirección IP, navegador, dispositivo y cookies."],
-  ["Finalidad del tratamiento", "Utilizamos los datos para responder consultas, gestionar solicitudes, ejecutar procesos de cobranza, procesar solicitudes de exclusión, mantener contacto comercial o informativo, mejorar nuestros servicios y cumplir obligaciones legales y contractuales."],
-  ["Base de legitimación", "El tratamiento se realiza sobre la base del consentimiento del titular, la ejecución de una relación contractual o precontractual, el cumplimiento de obligaciones legales y el interés legítimo del responsable, según corresponda en cada caso."],
-  ["Comunicación de datos a terceros", "Los datos podrán ser compartidos con proveedores tecnológicos, plataformas de comunicación, servicios de soporte, asesores legales y clientes o mandantes cuando ello sea necesario para la prestación de servicios, la gestión de cobranza o el cumplimiento de obligaciones legales."],
-  ["Conservación de los datos", "Los datos personales serán conservados durante el tiempo necesario para cumplir con la finalidad para la cual fueron recopilados, mientras exista una relación comercial o contractual, o durante los plazos exigidos por la normativa vigente."],
-  ["Derechos del titular", "El titular podrá solicitar acceso, rectificación, actualización, eliminación, oposición o limitación del tratamiento de sus datos personales, en los casos que corresponda conforme a la legislación aplicable."],
-  ["Solicitud de exclusión o desuscripción", "Las personas podrán solicitar la exclusión de sus datos de determinadas comunicaciones a través de los canales dispuestos por Procobro. Esta solicitud se aplicará a comunicaciones comerciales o de contacto no obligatorio, sin perjuicio de aquellas notificaciones legales o judiciales que deban mantenerse conforme a la ley."],
-  ["Seguridad de la información", "Procobro adopta medidas técnicas y organizativas razonables para proteger los datos personales frente a acceso no autorizado, pérdida, alteración, divulgación o destrucción."],
-  ["Uso de cookies", "Este sitio puede utilizar cookies y tecnologías similares para mejorar la experiencia del usuario, analizar navegación y optimizar funcionalidades. El usuario puede configurar su navegador para rechazar o limitar su uso."],
-  ["Responsable del tratamiento", "El responsable del tratamiento de los datos es Procobro. Para consultas relacionadas con privacidad o ejercicio de derechos, el usuario podrá contactarse a través de los canales informados en este sitio web."],
-  ["Cambios a esta política", "Procobro podrá actualizar esta Política de Privacidad cuando sea necesario para reflejar cambios legales, operativos o tecnológicos. Toda modificación entrará en vigor desde su publicación en el sitio."],
+  [
+    'Datos que recopilamos',
+    'Podemos recopilar nombre completo, RUT, correo electrónico, teléfono, empresa y cualquier información ingresada en formularios de contacto, consulta o desuscripción. También podemos recopilar datos técnicos de navegación, como dirección IP, navegador, dispositivo y cookies.',
+  ],
+  [
+    'Finalidad del tratamiento',
+    'Utilizamos los datos para responder consultas, gestionar solicitudes, ejecutar procesos de cobranza, procesar solicitudes de exclusión, mantener contacto comercial o informativo, mejorar nuestros servicios y cumplir obligaciones legales y contractuales.',
+  ],
+  [
+    'Base de legitimación',
+    'El tratamiento se realiza sobre la base del consentimiento del titular, la ejecución de una relación contractual o precontractual, el cumplimiento de obligaciones legales y el interés legítimo del responsable, según corresponda en cada caso.',
+  ],
+  [
+    'Comunicación de datos a terceros',
+    'Los datos podrán ser compartidos con proveedores tecnológicos, plataformas de comunicación, servicios de soporte, asesores legales y clientes o mandantes cuando ello sea necesario para la prestación de servicios, la gestión de cobranza o el cumplimiento de obligaciones legales.',
+  ],
+  [
+    'Conservación de los datos',
+    'Los datos personales serán conservados durante el tiempo necesario para cumplir con la finalidad para la cual fueron recopilados, mientras exista una relación comercial o contractual, o durante los plazos exigidos por la normativa vigente.',
+  ],
+  [
+    'Derechos del titular',
+    'El titular podrá solicitar acceso, rectificación, actualización, eliminación, oposición o limitación del tratamiento de sus datos personales, en los casos que corresponda conforme a la legislación aplicable.',
+  ],
+  [
+    'Solicitud de exclusión o desuscripción',
+    'Las personas podrán solicitar la exclusión de sus datos de determinadas comunicaciones a través de los canales dispuestos por Procobro. Esta solicitud se aplicará a comunicaciones comerciales o de contacto no obligatorio, sin perjuicio de aquellas notificaciones legales o judiciales que deban mantenerse conforme a la ley.',
+  ],
+  [
+    'Seguridad de la información',
+    'Procobro adopta medidas técnicas y organizativas razonables para proteger los datos personales frente a acceso no autorizado, pérdida, alteración, divulgación o destrucción.',
+  ],
+  [
+    'Uso de cookies',
+    'Este sitio puede utilizar cookies y tecnologías similares para mejorar la experiencia del usuario, analizar navegación y optimizar funcionalidades. El usuario puede configurar su navegador para rechazar o limitar su uso.',
+  ],
+  [
+    'Responsable del tratamiento',
+    'El responsable del tratamiento de los datos es Procobro. Para consultas relacionadas con privacidad o ejercicio de derechos, el usuario podrá contactarse a través de los canales informados en este sitio web.',
+  ],
+  [
+    'Cambios a esta política',
+    'Procobro podrá actualizar esta Política de Privacidad cuando sea necesario para reflejar cambios legales, operativos o tecnológicos. Toda modificación entrará en vigor desde su publicación en el sitio.',
+  ],
 ];
 
 const termsSections = [
-  ["Identificación del titular del sitio", "Este sitio web es operado por Procobro, empresa dedicada a la prestación de servicios de cobranza, gestión empresarial, atención al cliente y soluciones relacionadas."],
-  ["Objeto del sitio", "El sitio tiene por finalidad entregar información institucional y comercial sobre los servicios de Procobro, facilitar el contacto con potenciales clientes, permitir consultas y canalizar solicitudes relacionadas con servicios, atención o desuscripción."],
-  ["Uso adecuado del sitio", "El usuario se compromete a utilizar el sitio de forma lícita, responsable y conforme a la normativa vigente. No podrá realizar acciones que afecten la seguridad, disponibilidad o integridad del sitio, ni utilizar formularios o canales de contacto para fines indebidos o fraudulentos."],
-  ["Veracidad de la información", "El usuario declara que la información proporcionada a través del sitio es veraz, completa y actualizada. Procobro no será responsable por errores, omisiones o consecuencias derivadas de datos incorrectos entregados por el usuario."],
-  ["Alcance de la información publicada", "La información publicada en este sitio es de carácter general e informativo. La contratación o prestación efectiva de servicios puede estar sujeta a evaluación previa, validación de antecedentes, aceptación comercial y formalización contractual."],
-  ["Propiedad intelectual", "Todos los contenidos del sitio, incluyendo textos, marcas, logotipos, diseño, estructura, imágenes y elementos gráficos, son de propiedad de Procobro o de sus respectivos titulares, y se encuentran protegidos por la normativa aplicable. Queda prohibida su reproducción o uso no autorizado."],
-  ["Limitación de responsabilidad", "Procobro realiza esfuerzos razonables para mantener la información actualizada y el sitio disponible, pero no garantiza la ausencia absoluta de errores, interrupciones o fallas técnicas. El uso del sitio es de responsabilidad del usuario."],
-  ["Enlaces a terceros", "Cuando el sitio contenga enlaces a sitios externos o plataformas de terceros, Procobro no se hace responsable por sus contenidos, políticas, disponibilidad o prácticas de tratamiento de datos."],
-  ["Comunicaciones y servicios", "El uso del sitio no reemplaza comunicaciones formales, contractuales, legales o judiciales que deban efectuarse por los canales correspondientes. Ciertas gestiones o servicios pueden requerir validaciones adicionales antes de su ejecución."],
-  ["Suspensión o restricción de acceso", "Procobro podrá restringir o suspender el acceso al sitio, total o parcialmente, cuando detecte usos indebidos, riesgos de seguridad o incumplimientos a estos términos."],
-  ["Legislación aplicable", "Estos términos se regirán por la legislación vigente aplicable en Chile. Cualquier controversia relacionada con el uso del sitio será resuelta por los tribunales competentes conforme a derecho."],
-  ["Modificaciones", "Procobro podrá modificar estos Términos de Servicio en cualquier momento. Las nuevas versiones entrarán en vigor una vez publicadas en el sitio web."],
+  [
+    'Identificación del titular del sitio',
+    'Este sitio web es operado por Procobro, empresa dedicada a la prestación de servicios de cobranza, gestión empresarial, atención al cliente y soluciones relacionadas.',
+  ],
+  [
+    'Objeto del sitio',
+    'El sitio tiene por finalidad entregar información institucional y comercial sobre los servicios de Procobro, facilitar el contacto con potenciales clientes, permitir consultas y canalizar solicitudes relacionadas con servicios, atención o desuscripción.',
+  ],
+  [
+    'Uso adecuado del sitio',
+    'El usuario se compromete a utilizar el sitio de forma lícita, responsable y conforme a la normativa vigente. No podrá realizar acciones que afecten la seguridad, disponibilidad o integridad del sitio, ni utilizar formularios o canales de contacto para fines indebidos o fraudulentos.',
+  ],
+  [
+    'Veracidad de la información',
+    'El usuario declara que la información proporcionada a través del sitio es veraz, completa y actualizada. Procobro no será responsable por errores, omisiones o consecuencias derivadas de datos incorrectos entregados por el usuario.',
+  ],
+  [
+    'Alcance de la información publicada',
+    'La información publicada en este sitio es de carácter general e informativo. La contratación o prestación efectiva de servicios puede estar sujeta a evaluación previa, validación de antecedentes, aceptación comercial y formalización contractual.',
+  ],
+  [
+    'Propiedad intelectual',
+    'Todos los contenidos del sitio, incluyendo textos, marcas, logotipos, diseño, estructura, imágenes y elementos gráficos, son de propiedad de Procobro o de sus respectivos titulares, y se encuentran protegidos por la normativa aplicable. Queda prohibida su reproducción o uso no autorizado.',
+  ],
+  [
+    'Limitación de responsabilidad',
+    'Procobro realiza esfuerzos razonables para mantener la información actualizada y el sitio disponible, pero no garantiza la ausencia absoluta de errores, interrupciones o fallas técnicas. El uso del sitio es de responsabilidad del usuario.',
+  ],
+  [
+    'Enlaces a terceros',
+    'Cuando el sitio contenga enlaces a sitios externos o plataformas de terceros, Procobro no se hace responsable por sus contenidos, políticas, disponibilidad o prácticas de tratamiento de datos.',
+  ],
+  [
+    'Comunicaciones y servicios',
+    'El uso del sitio no reemplaza comunicaciones formales, contractuales, legales o judiciales que deban efectuarse por los canales correspondientes. Ciertas gestiones o servicios pueden requerir validaciones adicionales antes de su ejecución.',
+  ],
+  [
+    'Suspensión o restricción de acceso',
+    'Procobro podrá restringir o suspender el acceso al sitio, total o parcialmente, cuando detecte usos indebidos, riesgos de seguridad o incumplimientos a estos términos.',
+  ],
+  [
+    'Legislación aplicable',
+    'Estos términos se regirán por la legislación vigente aplicable en Chile. Cualquier controversia relacionada con el uso del sitio será resuelta por los tribunales competentes conforme a derecho.',
+  ],
+  [
+    'Modificaciones',
+    'Procobro podrá modificar estos Términos de Servicio en cualquier momento. Las nuevas versiones entrarán en vigor una vez publicadas en el sitio web.',
+  ],
 ];
 ---
 
-<footer class="bg-primary text-white">
+<footer class='bg-primary text-white'>
   <!-- Main Footer -->
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-    <div class="grid gap-12 lg:grid-cols-5">
+  <div class='mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8'>
+    <div class='grid gap-12 lg:grid-cols-5'>
       <!-- Brand -->
-      <div class="lg:col-span-2">
-        <a href="#inicio" class="mb-6 inline-flex rounded-lg bg-white px-3 py-2 shadow-sm" aria-label="Ir al inicio">
+      <div class='lg:col-span-2'>
+        <a
+          href='#inicio'
+          class='mb-6 inline-flex rounded-lg bg-white px-3 py-2 shadow-sm'
+          aria-label='Ir al inicio'
+        >
           <Image
-            src="/assets/procobro-logo.webp"
-            alt="Procobro"
+            src='/assets/logo.jpeg'
+            alt='Procobro'
             width={1080}
             height={397}
-            class="h-9 w-auto"
-            loading="lazy"
+            class='h-9 w-auto'
+            loading='lazy'
           />
         </a>
-        <p class="text-white/70 leading-relaxed mb-6 max-w-sm">
-          Soluciones profesionales de cobranza y gestión empresarial.
-          Combinamos tecnología de punta con experiencia humana para
-          maximizar sus resultados.
+        <p class='text-white/70 leading-relaxed mb-6 max-w-sm'>
+          Soluciones profesionales de cobranza y gestión empresarial. Combinamos
+          tecnología de punta con experiencia humana para maximizar sus
+          resultados.
         </p>
         <!-- <div class="flex gap-4">
           {socialLinks.map((social) => (
@@ -109,83 +189,91 @@ const termsSections = [
 
       <!-- Links -->
       <div>
-        <h3 class="font-semibold mb-4">Servicios</h3>
-        <ul class="space-y-3">
-          {footerLinks.servicios.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-white/70 transition-colors hover:text-secondary"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold mb-4">Tecnología</h3>
-        <ul class="space-y-3">
-          {footerLinks.tecnologia.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-white/70 transition-colors hover:text-secondary"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <h3 class="font-semibold mb-4 mt-8">Empresa</h3>
-        <ul class="space-y-3">
-          {footerLinks.empresa.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="text-sm text-white/70 transition-colors hover:text-secondary"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div>
-        <h3 class="font-semibold mb-4">Legal</h3>
-        <ul class="space-y-3">
-          {footerLinks.legal.map((link) => (
-            <li>
-              {link.modal ? (
-                <button
-                  type="button"
-                  data-legal-open={link.modal}
-                  class="cursor-pointer text-left text-sm text-white/70 transition-colors hover:text-secondary"
-                >
-                  {link.name}
-                </button>
-              ) : (
+        <h3 class='font-semibold mb-4'>Servicios</h3>
+        <ul class='space-y-3'>
+          {
+            footerLinks.servicios.map((link) => (
+              <li>
                 <a
                   href={link.href}
-                  class="text-sm text-white/70 transition-colors hover:text-secondary"
+                  class='text-sm text-white/70 transition-colors hover:text-secondary'
                 >
                   {link.name}
                 </a>
-              )}
-            </li>
-          ))}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class='font-semibold mb-4'>Tecnología</h3>
+        <ul class='space-y-3'>
+          {
+            footerLinks.tecnologia.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class='text-sm text-white/70 transition-colors hover:text-secondary'
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <h3 class='font-semibold mb-4 mt-8'>Empresa</h3>
+        <ul class='space-y-3'>
+          {
+            footerLinks.empresa.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class='text-sm text-white/70 transition-colors hover:text-secondary'
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class='font-semibold mb-4'>Legal</h3>
+        <ul class='space-y-3'>
+          {
+            footerLinks.legal.map((link) => (
+              <li>
+                {link.modal ? (
+                  <button
+                    type='button'
+                    data-legal-open={link.modal}
+                    class='cursor-pointer text-left text-sm text-white/70 transition-colors hover:text-secondary'
+                  >
+                    {link.name}
+                  </button>
+                ) : (
+                  <a
+                    href={link.href}
+                    class='text-sm text-white/70 transition-colors hover:text-secondary'
+                  >
+                    {link.name}
+                  </a>
+                )}
+              </li>
+            ))
+          }
         </ul>
 
         <!-- Back to Top -->
-        <div class="mt-8">
+        <div class='mt-8'>
           <button
-            id="back-to-top"
-            class="inline-flex cursor-pointer items-center justify-center rounded-md border border-white/30 bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+            id='back-to-top'
+            class='inline-flex cursor-pointer items-center justify-center rounded-md border border-white/30 bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10'
           >
-            <ArrowUp class="mr-2 h-4 w-4" />
+            <ArrowUp class='mr-2 h-4 w-4' />
             Volver Arriba
           </button>
         </div>
@@ -194,13 +282,13 @@ const termsSections = [
   </div>
 
   <!-- Bottom Bar -->
-  <div class="border-t border-white/10">
-    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
-        <p class="text-sm text-white/50">
+  <div class='border-t border-white/10'>
+    <div class='mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8'>
+      <div class='flex flex-col items-center justify-between gap-4 sm:flex-row'>
+        <p class='text-sm text-white/50'>
           © {currentYear} Procobro. Todos los derechos reservados.
         </p>
-        <p class="text-sm text-white/50">
+        <p class='text-sm text-white/50'>
           Desarrollado con tecnología de punta
         </p>
       </div>
@@ -209,68 +297,80 @@ const termsSections = [
 </footer>
 
 <div
-  id="legal-modal"
-  class="modal-shell fixed inset-0 z-[70] hidden items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm"
-  role="dialog"
-  aria-modal="true"
-  aria-label="Documento legal"
-  aria-hidden="true"
+  id='legal-modal'
+  class='modal-shell fixed inset-0 z-[70] hidden items-center justify-center bg-black/60 px-4 py-6 backdrop-blur-sm'
+  role='dialog'
+  aria-modal='true'
+  aria-label='Documento legal'
+  aria-hidden='true'
 >
-  <div class="modal-panel relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-2xl sm:p-8">
+  <div
+    class='modal-panel relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-2xl sm:p-8'
+  >
     <button
-      type="button"
-      id="legal-modal-close"
-      class="absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted"
-      aria-label="Cerrar documento legal"
+      type='button'
+      id='legal-modal-close'
+      class='absolute right-4 top-4 flex h-10 w-10 cursor-pointer items-center justify-center rounded-md border border-border bg-background text-foreground transition-colors hover:bg-muted'
+      aria-label='Cerrar documento legal'
     >
-      <X class="h-5 w-5" />
+      <X class='h-5 w-5' />
     </button>
 
-    <div data-legal-panel="privacy" class="hidden pr-0 sm:pr-8">
-      <h2 class="mb-4 text-2xl font-bold text-foreground">
+    <div
+      data-legal-panel='privacy'
+      class='hidden pr-0 sm:pr-8'
+    >
+      <h2 class='mb-4 text-2xl font-bold text-foreground'>
         Política de Privacidad
       </h2>
-      <p class="mb-6 leading-relaxed text-muted-foreground">
+      <p class='mb-6 leading-relaxed text-muted-foreground'>
         En Procobro valoramos y protegemos la privacidad de las personas. Esta
         política explica qué datos recopilamos, para qué los utilizamos, cómo
         los resguardamos y qué derechos tienen sus titulares, conforme a la
         normativa aplicable.
       </p>
-      <div class="space-y-5">
-        {privacySections.map(([title, text], index) => (
-          <section>
-            <h3 class="mb-2 font-semibold text-foreground">
-              {index + 1}. {title}
-            </h3>
-            <p class="text-sm leading-relaxed text-muted-foreground">
-              {text}
-            </p>
-          </section>
-        ))}
+      <div class='space-y-5'>
+        {
+          privacySections.map(([title, text], index) => (
+            <section>
+              <h3 class='mb-2 font-semibold text-foreground'>
+                {index + 1}. {title}
+              </h3>
+              <p class='text-sm leading-relaxed text-muted-foreground'>
+                {text}
+              </p>
+            </section>
+          ))
+        }
       </div>
     </div>
 
-    <div data-legal-panel="terms" class="hidden pr-0 sm:pr-8">
-      <h2 class="mb-4 text-2xl font-bold text-foreground">
+    <div
+      data-legal-panel='terms'
+      class='hidden pr-0 sm:pr-8'
+    >
+      <h2 class='mb-4 text-2xl font-bold text-foreground'>
         Términos de Servicio
       </h2>
-      <p class="mb-6 leading-relaxed text-muted-foreground">
-        Estos Términos de Servicio regulan el acceso, navegación y uso del
-        sitio web de Procobro, así como la interacción de los usuarios con sus
+      <p class='mb-6 leading-relaxed text-muted-foreground'>
+        Estos Términos de Servicio regulan el acceso, navegación y uso del sitio
+        web de Procobro, así como la interacción de los usuarios con sus
         formularios, contenidos y canales de contacto. Al utilizar este sitio,
         el usuario acepta las disposiciones aquí indicadas.
       </p>
-      <div class="space-y-5">
-        {termsSections.map(([title, text], index) => (
-          <section>
-            <h3 class="mb-2 font-semibold text-foreground">
-              {index + 1}. {title}
-            </h3>
-            <p class="text-sm leading-relaxed text-muted-foreground">
-              {text}
-            </p>
-          </section>
-        ))}
+      <div class='space-y-5'>
+        {
+          termsSections.map(([title, text], index) => (
+            <section>
+              <h3 class='mb-2 font-semibold text-foreground'>
+                {index + 1}. {title}
+              </h3>
+              <p class='text-sm leading-relaxed text-muted-foreground'>
+                {text}
+              </p>
+            </section>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -290,7 +390,8 @@ const termsSections = [
   let legalCloseTimer: number | undefined;
 
   const lockLegalPageScroll = () => {
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
 
     document.documentElement.classList.add('modal-scroll-locked');
     document.body.classList.add('modal-scroll-locked');
@@ -306,7 +407,11 @@ const termsSections = [
   };
 
   const closeLegalModal = () => {
-    if (!legalModal?.classList.contains('flex') || !legalModal.classList.contains('is-open')) return;
+    if (
+      !legalModal?.classList.contains('flex') ||
+      !legalModal.classList.contains('is-open')
+    )
+      return;
 
     legalModal.classList.remove('is-open');
     legalModal.setAttribute('aria-hidden', 'true');
@@ -323,11 +428,15 @@ const termsSections = [
       legalCloseTimer = undefined;
     }
 
-    legalPanels.forEach(panel => {
-      panel.classList.toggle('hidden', panel.getAttribute('data-legal-panel') !== panelName);
+    legalPanels.forEach((panel) => {
+      panel.classList.toggle(
+        'hidden',
+        panel.getAttribute('data-legal-panel') !== panelName,
+      );
     });
     const wasClosed = legalModal?.classList.contains('hidden');
-    const shouldLockScroll = wasClosed || !legalModal?.classList.contains('is-open');
+    const shouldLockScroll =
+      wasClosed || !legalModal?.classList.contains('is-open');
 
     legalModal?.classList.remove('hidden');
     legalModal?.classList.add('flex');
@@ -340,7 +449,7 @@ const termsSections = [
     }
   };
 
-  legalTriggers.forEach(trigger => {
+  legalTriggers.forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const panelName = trigger.getAttribute('data-legal-open');
       if (panelName) openLegalModal(panelName);
